@@ -2,11 +2,10 @@
     "name": "ryzit",
     "version": "1.0.0",
     "description": "An all in one social app. Chatting, sharing moments and showing your best and worst sides to your beloved ones.",
-    "main": "gulpfile.js",
+    "main": "index.js",
     "author": "Sahil Mor",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node app.js"
+        "start": "node index.js"
     },
     "devDependencies": {
         "body-parser": "^1.19.0",
