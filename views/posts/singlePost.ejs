@@ -194,15 +194,17 @@
                           </div>
                         </a>
                       </li>
-                      <li class="nav-item" id="edit-post-btn">
-                        <a href="#" class="nav-link bg-danger text-white py-2  px-3 " data-toggle="modal"
-                          data-target="#modal-edit">
-                          <div class=" row">
-                            <i class="ni ni-ruler-pencil  text-white  px-2"></i>
-                            <span class="d-none d-md-block pr-2">Edit</span>
-                          </div>
-                        </a>
-                      </li>
+                      <% if( post.owner.id == user.id ) { %> 
+                        <li class="nav-item" id="edit-post-btn">
+                          <a href="#" class="nav-link bg-danger text-white py-2  px-3 " data-toggle="modal"
+                            data-target="#modal-edit">
+                            <div class=" row">
+                              <i class="ni ni-ruler-pencil  text-white  px-2"></i>
+                              <span class="d-none d-md-block pr-2">Edit</span>
+                            </div>
+                          </a>
+                        </li>
+                      <%} %>
                     </ul>
                   </div>
 
