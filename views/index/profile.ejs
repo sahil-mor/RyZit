@@ -1,0 +1,114 @@
+<% include ../partials/header %> 
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %> 
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <% include ../partials/about %> 
+    <div class="header pb-6 d-flex align-items-center" style="max-height: 200px;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-12 order-xl-4">
+          <div class="card card-profile">
+            <img src="../assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">          
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="/profilePicture">
+                    <% if(user.profilePic == "null"){ %> 
+                      <img src="../assets/img/brand/favicon.png" class="rounded-circle">
+                    <%}else { %> 
+                      <img src="<%=user.profilePic%>" class="rounded-circle">
+                    <% } %>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <a href="/friends" class="btn btn-sm btn-info  mr-4 ">My Friends</a>
+                <a href="messages-all.html" class="btn btn-sm btn-default float-right">My Messages</a>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center">
+                    <div>
+                      <span class="heading"> <%= user.numberFriend %> </span>
+                      <a href="/friends">
+                        <span class="description">Friends</span>
+                      </a>
+                    </div>
+
+                    <div>
+                      <span class="heading"> <%= user.numberPost %> </span>
+                      <a href="/myPosts">
+                        <span class="description">Posts</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h5 class="h3">
+                  <% if( user.firstName != "" ){ %> 
+                      <%= user.firstName%> <%=user.lastName %>
+                  <%}else{ %> 
+                    <%= user.username %>
+                  <%} %>
+                </h5>
+                <div class="h5 font-weight-300">
+                  <i class="ni location_pin mr-2"></i> 
+                  <% if( user.address == "" ) { %> 
+                      Add Your Place
+                  <%}else { %> 
+                    <%= user.address %>  
+                  <%} %>
+                </div>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i> 
+                  <% if( user.about == "" ) { %> 
+                    Add About Yourself
+                <%}else { %> 
+                  <%= user.about %>  
+                <%} %>
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i> 
+                  <% if( user.workStation == "" ) { %> 
+                    Add Place Where You Work Or Study
+                <%}else { %> 
+                  <%= user.workStation %>  
+                <%} %>
+                </div>
+                <div class="container-fluid d-flex align-items-center pt-5">
+                  <div class=" row" style="margin-left: 50%; transform: translateX(-50%);">
+                    <!-- <p class="text-white mt-0 mb-5">Welcome to your profile.</p> -->
+                    <a href="/editprofile" class="btn btn-neutral">Edit profile</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+      <!-- Footer -->
+      <% include ../partials/footer %> 
+    </div>
+  </div>
+  <% include ../partials/scripts %> 
+</body>
+
+</html>

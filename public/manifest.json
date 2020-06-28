@@ -1,0 +1,50 @@
+{
+    "name" : "RyZit",
+    "short_name" : "RyZit",
+    "icons" : [
+        {
+            "src" : "./icons/48x48.png",
+            "type" : "image/png",
+            "sizes" :  "48x48"
+        },
+        {
+            "src" : "./icons/96x96.png",
+            "type" : "image/png",
+            "sizes" :  "96x96"
+        },
+        {
+            "src" : "./icons/144x144.png",
+            "type" : "image/png",
+            "sizes" :  "144x144"
+        },
+        {
+            "src" : "./icons/192x192.png",
+            "type" : "image/png",
+            "sizes" :  "192x192"
+        },
+        {
+            "src" : "./icons/256x256.png",
+            "type" : "image/png",
+            "sizes" :  "256x256"
+        },
+        {
+            "src" : "./icons/384x384.png",
+            "type" : "image/png",
+            "sizes" :  "384x384"
+        },
+        {
+            "src" : "./icons/512x512.png",
+            "type" : "image/png",
+            "sizes" :  "512x512"
+        }
+    ],
+    "start_url" : "/index",
+    "scope" : ".",
+    "display": "standalone",
+    "orientation" : "portrait-primary",
+    "background_color" : "#825ee4",
+    "theme_color" : "#825ee4",
+    "description" : "An all in one social. Chatting, sharing moments and showing your best and worst sides to your beloved ones.",
+    "dir" : "ltr",
+    "lang" : "en-US"
+}

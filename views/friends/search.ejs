@@ -1,0 +1,65 @@
+<% include ../partials/header %> 
+
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %> 
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <% include ../partials/about %> 
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0"></h6>
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row justify-content-center">
+        <div class=" col ">
+          <div class="card">
+            <div class="card-header bg-default">
+              <h3 class="mb-0 text-light"> You searched - <%= search %> </h3>
+            </div>
+            <div class="card-body bg-primary">
+              <div class="row icon-examples">
+                <% data.forEach( (eachUser) => { %>
+                  <div class="col-lg-3 col-md-6">
+                    <a type="button" href="/view-<%=eachUser.id%>" class="btn-icon-clipboard" data-clipboard-text="active-40" title="<%=eachUser.username%>">
+                      <div>
+                        <div class="col-auto">
+                          <!-- Avatar -->
+                          <% if(eachUser.profilePic == 'null'){ %> 
+                            <img alt="Image placeholder" src="../assets/img/brand/favicon.png" class="avatar rounded-circle">
+                        <%}else{ %> 
+                            <img alt="Image placeholder" src="<%=eachUser.profilePic%>" class="avatar rounded-circle">
+                        <%} %>
+                        </div>
+                        <span> <%=eachUser.username%> </span>
+                      </div>
+                    </a>
+                  </div>
+                <% } ) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+    <% include ../partials/footer %> 
+    </div>
+  </div>
+  <% include ../partials/scripts %> 
+</body>
+
+</html>

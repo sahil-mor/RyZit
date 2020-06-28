@@ -1,0 +1,167 @@
+<% include ../partials/header %> 
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %> 
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <% include ../partials/about %> 
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-2 ">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark m-0 ">
+                  <li class="breadcrumb-item h2 active text-dark m-0" aria-current="page">Welcome <span class="text-purple"> 
+                     @<%=user.username%>  </span></li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-6 col-5 text-right">
+              <a href="/createPost" class="btn btn-sm btn-neutral"> <i class=" ni ni-atom pr-2"></i>Create
+                Post</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <% data.forEach( (eachPost) => { %> 
+        <div class="row">
+          <div class="col-xl-10">
+            <div class="card bg-default"
+              style="border-radius: 30px; box-shadow: 0px 0px 40px 0px rgba(12, 21, 37, 0.82);">
+              <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <!-- Avatar -->
+                    <div class="row pl-4">
+                      <% if(eachPost.ownerPic != 'null'){ %> 
+                        <img alt="Image placeholder" src="<%=eachPost.ownerPic%>" class="avatar rounded-circle">
+                      <%}else{ %> 
+                        <img alt="Image placeholder" src="assets/img/brand/favicon.png" class="avatar rounded-circle">
+                      <%} %>
+                      <div class="col">
+                        <a href="view-<%=eachPost.owner%>"><h5 class="h3 text-white mb-0"> <%= eachPost.ownerName %> </h5> </a>
+                        <% var date1 = eachPost.timeOfPosting; %> 
+                          <% var date2 = new Date(); %> 
+                          <% var Difference_In_Time = date2.getTime() - date1; %> 
+                          <% var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); %>
+                          <% Difference_In_Time_Hours = Difference_In_Time / (1000 * 3600) %>
+                          <% Difference_In_Time_Mins = Difference_In_Time / (1000 * 60) %>
+                          <div class="text-right text-muted">
+                            <% if( parseInt( Difference_In_Days ) >= 7){ %> 
+                              <h6 class="text-light text-uppercase ls-1 mb-1">
+                                <%= eachPost.date.slice(0,11) %> </h6>
+                            <%}else if(Difference_In_Days > 1){ %> 
+                              <h6 class="text-light text-uppercase ls-1 mb-1">
+                                <%= parseInt(Difference_In_Days) %> days ago</h6>
+                            <%}else if( Difference_In_Time_Hours > 1 ){ %> 
+                              <h6 class="text-light text-uppercase ls-1 mb-1">
+                                <%= parseInt(Difference_In_Time_Hours) %> hrs ago</h6>
+                            <%}else if(Difference_In_Time_Mins != 0) { %> 
+                              <h6 class="text-light text-uppercase ls-1 mb-1">
+                                <%= parseInt(Difference_In_Time_Mins) %> mins ago</h6>
+                            <%}else { %> 
+                              <h6 class="text-light text-uppercase ls-1 mb-1">
+                                just now</h6>
+                            <%} %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <ul class="nav nav-pills justify-content-end">
+                      <li class="nav-item mr-2 mr-md-0">
+                        <a href="/likePost-<%=eachPost.id%>" class="nav-link py-2 px-3 active">
+                          <div class="row">
+                            <% if(eachPost.likedBy.includes(user.id)){ %>
+                              <i class="fa fa-check px-2 py-1"></i>
+                            <%}else{ %> 
+                              <i class="ni ni-spaceship text-white px-2"></i>
+                            <%} %>  
+                            <span class="d-none d-md-block pr-2"> Like
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link py-2 px-3">
+                          <div class="row">
+                            <i class="ni ni-spaceship text-default px-2"></i>
+                            <span class="d-none d-md-block pr-2">Comment
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- body of post -->
+                <div class="col  pb-3 ">
+                  <h5 class="text-white  ls-1 mb-1">
+                    <%= eachPost.caption %>
+                    <% if(eachPost.edited == true){ %> 
+                      <small> (Edited) </small>
+                    <% } %> 
+                  </h5>
+                </div>
+                <a
+                  href="/post-<%=eachPost.id%>" >
+                  <div class="chart bg-default content-body" style="background-image: url('<%=eachPost.image%>');
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: auto; border-radius: 40px;
+                  box-shadow: 0px 0px 40px 0px rgba(47, 70, 114, 0.82);"
+                  >
+                  </div>
+                </a>
+                <h4 class="text-light text-uppercase mt-4"> 
+                  <i class="fas fa-thumbs-up px-2 py-1"></i> <%= eachPost.likes %>  Likes | <i
+                  class="ni ni-spaceship text-white px-2"></i>  <%= eachPost.comments %> 
+                Comments </h4>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-10">
+            <div class="bg-default p-2 ">
+              <form method="POST" action="/addComment-<%=eachPost.id%>" >
+                <div class="d-flex flex-row align-items-start ">
+                  <% if(user.profilePic == 'null'){ %>
+                    <img class="rounded-circle"
+                    src="../assets/img/brand/favicon.png" width="40">
+                  <%}else{ %> 
+                    <img class="rounded-circle"
+                      src="<%=user.profilePic%>" width="40">
+                    <%} %>
+                    <textarea required class="form-control ml-1 shadow-none textarea bg-default text-white ml-4"
+                    placeholder="Write a Comment" name="commentText"></textarea>
+                  </div>
+                  <div class="mt-2 text-right">
+                    <button class="btn btn-primary btn-sm shadow-none" type="submit">Post Comment</button>
+                    <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="reset">Cancel</button></div>
+                  </form>
+            </div>
+          </div>
+        </div>
+    <% } ) %>
+    <!-- Footer -->
+    <% include ../partials/footer %> 
+  </div>
+  </div>
+  <% include ../partials/scripts %> 
+</body>
+
+</html>

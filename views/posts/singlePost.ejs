@@ -1,0 +1,473 @@
+<% include ../partials/header %> 
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %> 
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <% include ../partials/about %> 
+    <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
+      <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content text-white " style="background-color: var(--purple);">
+
+          <div class="modal-header">
+            <h6 class="modal-title text-white" id="modal-title-notification">Edit Post</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <form action="/editPost-<%=post.id%>" method="POST">
+          <div class="modal-body">
+            <div class="py-3">
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Caption</label>
+                  <textarea required name="caption" class="form-control" id="edit-area" rows="7">  </textarea>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button onclick="location.href='/deletePost-<%=post.id%>';" type="button" class="btn btn-danger">Delete Post</button>
+            <button type="submit" class="btn btn-success" >Save</button>
+            <button type="reset" class="btn btn-white" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal-liked" tabindex="-1" role="dialog" aria-labelledby="modal-liked"
+      aria-hidden="true">
+      <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content text-white " style="background-color: var(--purple);">
+
+          <div class="modal-header">
+            <h6 class="modal-title text-white" id="modal-title-notification">Liked by</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+
+            <div class="py-3">
+
+              <div class="row">
+                <div class="col">
+                  <div class="card bg-default shadow">
+                    <div class="table-responsive">
+                      <table class="table align-items-center table-dark table-flush">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col" class="sort" data-sort="name">Name</th>
+                            <th scope="col" class="sort" data-sort="budget">Username</th>
+                          </tr>
+                        </thead>
+                        <tbody class="list">
+                          <% post.likedBy.forEach( eachLike => { %> 
+                            <tr data-href="">
+                              <th scope="row">
+                                <div class="media align-items-center">
+                                  <a href="/view-<%=eachLike.id%>" class="avatar rounded-circle mr-3">
+                                    <% if(eachLike.profilePic == 'null'){ %> 
+                                      <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
+                                    <%}else{ %> 
+                                      <img alt="Image placeholder" src="<%=eachLike.profilePic%>">
+                                    <%} %>
+                                  </a>
+                                  <div class="media-body">
+                                    <span class="name mb-0 text-sm"> 
+                                      <% if(eachLike.firstName != "" && eachLike.lastName != ""){ %> 
+                                        <%= eachLike.firstName %> <%= eachLike.lastName%>
+                                      <%}else{ %> 
+                                        <%= eachLike.username %>
+                                      <%} %>
+                                       </span>
+                                  </div>
+                                </div>
+                              </th>
+                              <td class="budget">
+                                @<%=eachLike.username%>
+                              </td>
+                            </tr>
+                          <%} ) %>
+                        </tbody>
+                      </table>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-2 ">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark m-0 ">
+                  <li class="breadcrumb-item h2 active text-dark m-0" aria-current="page">Welcome <span class="text-purple"> 
+                     @<%=user.username%>  </span></li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-6 col-5 text-right">
+              <a href="/createPost" class="btn btn-sm btn-neutral"> <i class=" ni ni-atom pr-2"></i>Create
+                Post</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+          <div class="col-xl-10">
+            <div class="card bg-default"
+              style="border-radius: 30px; box-shadow: 0px 0px 40px 0px rgba(12, 21, 37, 0.82);">
+              <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <!-- Avatar -->
+                    <div class="row pl-4">
+                      <% if(post.ownerPic != 'null'){ %> 
+                        <img alt="Image placeholder" src="<%=post.ownerPic%>" class="avatar rounded-circle">
+                      <%}else{ %> 
+                        <img alt="Image placeholder" src="assets/img/brand/favicon.png" class="avatar rounded-circle">
+                      <%} %>
+                      <div class="col">
+                        <a href="view-<%=post.owner%>"><h5 class="h3 text-white mb-0"> <%= post.ownerName %> </h5> </a>
+                        <% var date1 = post.timeOfPosting; %> 
+                          <% var date2 = new Date(); %> 
+                          <% var Difference_In_Time = date2.getTime() - date1; %> 
+                          <% var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); %>
+                          <% Difference_In_Time_Hours = Difference_In_Time / (1000 * 3600) %>
+                          <% Difference_In_Time_Mins = Difference_In_Time / (1000 * 60) %>
+                          <div class="text-right text-muted">
+                            <% if(Difference_In_Days > 1){ %> 
+                              <span>
+                                <%= parseInt(Difference_In_Days) %> days ago</h6>
+                            <%}else if( Difference_In_Time_Hours > 1 ){ %> 
+                              <span>
+                                <%= parseInt(Difference_In_Time_Hours) %> hrs ago</h6>
+                            <%}else if(Difference_In_Time_Mins != 0) { %> 
+                              <span>
+                                <%= parseInt(Difference_In_Time_Mins) %> mins ago</h6>
+                            <%}else { %> 
+                              <span>
+                                just now</h6>
+                            <%} %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <ul class="nav nav-pills justify-content-end">
+                      <li class="nav-item mr-2 mr-md-0">
+                        <a href="/likePost-<%=post.id%>" class="nav-link py-2 px-3 active">
+                          <div class="row">
+                            <% if(post.likedBy.filter( (eachLike) => { %> 
+                              <% if(eachLike != null){ %> 
+                                <%  return eachLike.id == user.id %>
+                              <%} %>
+                            <%} ).length != 0 ){ %>
+                              <i class="fa fa-check px-2 py-1"></i>
+                            <%}else{ %> 
+                              <i class="ni ni-spaceship text-white px-2"></i>
+                            <%} %>  
+                            <span class="d-none d-md-block pr-2">Like
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li class="nav-item ">
+                        <a href="#" class="nav-link py-2 px-3">
+                          <div class="row ">
+                            <i class="ni ni-spaceship text-black px-2"></i>
+                            <span class="d-none d-md-block pr-2">Comment
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li class="nav-item" id="edit-post-btn">
+                        <a href="#" class="nav-link bg-danger text-white py-2  px-3 " data-toggle="modal"
+                          data-target="#modal-edit">
+                          <div class=" row">
+                            <i class="ni ni-ruler-pencil  text-white  px-2"></i>
+                            <span class="d-none d-md-block pr-2">Edit</span>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- body of post -->
+                <div class="col  pb-3 ">
+                  <h5 id="#caption1" class="text-white  ls-1 mb-1">
+                    <%= post.caption %>
+                    <% if(post.edited == true){ %> 
+                      <small> (Edited) </small>
+                    <% } %> 
+                  </h5>
+                </div>
+                <a
+                  href="<%=post.image%>" target="_blank"> 
+                  <div class="chart bg-default content-body" style="background-image: url('<%=post.image%>');
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: auto; border-radius: 40px;
+                  box-shadow: 0px 0px 40px 0px rgba(47, 70, 114, 0.82);"
+                  >
+                  </div>
+                </a>
+                <a href="#" data-toggle="modal" data-target="#modal-liked" >
+                <h4 class="text-light text-uppercase mt-4"> 
+                  <i class="fas fa-thumbs-up px-2 py-1"></i> <%= post.likes %>  Likes | <i
+                  class="ni ni-spaceship text-white px-2"></i>  <%= post.comments %> 
+                Comments </h4>
+              </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-10">
+            <div class="bg-default p-2 ">
+              <form action="/addComment-<%=post.id%>" method="POST">
+                <div class="d-flex flex-row align-items-start ">
+                  <% if(user.profilePic == 'null'){ %>
+                    <img class="rounded-circle"
+                    src="../assets/img/brand/favicon.png" width="40">
+                  <%}else{ %> 
+                    <img class="rounded-circle"
+                      src="<%=user.profilePic%>" width="40">
+                    <%} %>
+                    <textarea required class="form-control ml-1 shadow-none textarea bg-default text-white ml-4"
+                    placeholder="Write a Comment" name="commentText"></textarea>
+                  </div>
+                  <div class="mt-2 text-right">
+                    <button class="btn btn-primary btn-sm shadow-none" type="submit">Post Comment</button>
+                    <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="reset">Cancel</button></div>
+                  </form>
+            </div>
+          </div>
+        </div>
+        <% post.comment.forEach( eachCmnt => { %> 
+        
+      <div class="row pt-4">
+        <div class="d-flex justify-content-center row ml-3"></div>
+        <div class="col-xl-10">
+          <div class="container mt-2 mb-5">
+            <div class="d-flex justify-content-center row">
+              <div class="d-flex flex-column col-md-12">
+                <div class="d-flex flex-row align-items-center text-left comment-top  bg-default border-bottom px-4"
+                  style="box-shadow: 0px 0px 40px 0px rgba(21, 26, 36, 1); border-top-right-radius: 30px; border-top-left-radius: 30px;">
+                  <div class="profile-image py-3">
+                    <% if(eachCmnt.commentOwnerPic == 'null'){ %>
+                      <img class="rounded-circle" src="../assets/img/brand/favicon.png"
+                      width="40">
+                  <%}else{ %> 
+                      <img class="rounded-circle" src="<%=eachCmnt.commentOwnerPic%>"
+                      width="40">
+                  <%} %>
+                  </div>
+
+                  <div class="d-flex flex-column ml-3">
+                    <span class="  d-flex flex-row username px-2 m-0">
+                      <h4 class="text-light">
+                        <a href="/view-<%=eachCmnt.commentOwnerId%>" style="color: white;"> <%= eachCmnt.commentOwnerName %></a>
+                      </h4>
+                    </span>
+                    <div class="d-flex flex-row post-title m-0 p-0">
+
+                      <h3 class="text-white px-2"> <%= eachCmnt.content %></h3>
+                    </div>
+                    <div class="d-flex flex-row align-items-center text-light align-content-center post-title"
+                      style="font-size: 14px;">
+                      <a href="/likeComment-<%=eachCmnt.id%>-of-<%=post.id%>" class="text-white">
+                        <% if(eachCmnt.likedBy.filter( eachLike => { %> 
+                          <% if(eachLike != null){ %> 
+                            <% return eachLike.id == user.id %>  
+                          <%} %>
+                        <%} ).length != 0 ){ %> 
+                          <i class="fa fa-check px-2 py-1"></i>
+                        <%}else {%> 
+                          <i class="fas fa-thumbs-up px-2 py-1"></i>
+                        <%} %>
+                      <span class="mr-2 comments"> <%= eachCmnt.likes %>
+                        &nbsp;</span>
+                      </a>
+                      <% var numReply = eachCmnt.replies.filter( each => { %> 
+                          <% return each != null %>
+                      <%} ).length %>
+                        <span class="mr-2 dot"></span><span class="mr-2 comments"> <%=numReply %> Replies
+                        &nbsp;</span>
+
+                        <% if(post.owner.id == user.id || eachCmnt.commentBy == user.id ){ %> 
+                          <span class="mr-2 dot"></span>
+                          <span class="ml-1">
+                          <a href="/deleteComment-<%=eachCmnt.id%>-of-<%=post.id%>" class="text-red">
+                              <i class="ni ni-square-pin"></i>Delete
+                            </a>
+                          </span>
+                      <%} %>
+                        <span class="mr-2 dot"></span>
+                        <% var date1 = eachCmnt.timeOfPosting; %> 
+                        <% var date2 = new Date(); %> 
+                        <% var Difference_In_Time = date2.getTime() - date1; %> 
+                        <% var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); %>
+                        <% Difference_In_Time_Hours = Difference_In_Time / (1000 * 3600) %>
+                        <% Difference_In_Time_Mins = Difference_In_Time / (1000 * 60) %>
+                        <% if( parseInt(Difference_In_Days) >= 7  ){ %> 
+                            <span>
+                            <%= eachCmnt.date.slice(0,11) %> </span>
+                        <%}else if(Difference_In_Days > 1){ %> 
+                            <span>
+                            <%= parseInt(Difference_In_Days) %> days ago</span>
+                        <%}else if( Difference_In_Time_Hours > 1 ){ %> 
+                            <span>
+                            <%= parseInt(Difference_In_Time_Hours) %> hrs ago</span>
+                        <%}else if( parseInt(Difference_In_Time_Mins) != 0) { %> 
+                            <span>
+                            <%= parseInt(Difference_In_Time_Mins) %> mins ago</span>
+                        <%}else { %> 
+                            <span>
+                            just now</span>
+                        <%} %>
+                    </div>
+                  </div>
+                </div>
+                <div class="coment-bottom bg-default p-2 px-4"
+                  style="box-shadow: 0px 0px 40px 0px rgba(21, 26, 36, 1); border-bottom-right-radius: 30px; border-bottom-left-radius: 30px;">
+                  <div class="d-flex flex-row add-comment-section mt-4 mb-4 pl-5">
+                    <form style="width: 100%;" action="/replyComment-<%=eachCmnt.id%>-of-<%=post.id%>" method="POST">
+                      <div class="d-flex flex-row align-items-start">
+                        <% if(user.profilePic == 'null'){ %> 
+                          <img class="img-fluid img-responsive rounded-circle mr-2"
+                          src="../assets/img/brand/favicon.png" width="38">
+                        <%}else{ %> 
+                          <img class="img-fluid img-responsive rounded-circle mr-2"
+                          src="<%=user.profilePic%>" width="38">
+                        <%} %>
+                        <input type="text" name="commentText" class="form-control circlebanao bg-default mr-3"
+                      placeholder="Reply"><button class="btn btn-primary" type="submit">Reply</button>
+                      </div>
+                    </form>
+                    </div>
+
+                  <div class="collapsable-comment text-white">
+                    <div class="d-flex flex-row justify-content-between align-items-center action-collapse p-2"
+                      data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1">
+                      <span>See All Replies</span><i class="fa fa-chevron-down servicedrop"></i></div>
+                    <div id="collapse-1" class="collapse pl-5">
+                      <% eachCmnt.replies.forEach( eachReply => { %> 
+                          <div class="commented-section mt-2 ">
+                            <div class="d-flex flex-row align-items-center commented-user">
+                              <% if(eachReply.commentOwnerPic == 'null'){ %> 
+                                <img class="img-fluid img-responsive rounded-circle mr-2"
+                                src="../assets/img/brand/favicon.png" width="38">
+                              <%}else{ %> 
+                                <img class="img-fluid img-responsive rounded-circle mr-2"
+                                src="<%=eachReply.commentOwnerPic%>" width="38">
+                              <%} %>
+                              <h4 class="mr-2 text-white"> <%= eachReply.commentOwnerName %> </h4><span class="dot mb-1"></span>
+                              
+                        <span class="mr-2 dot"></span>
+                              <% var date1 = eachReply.timeOfPosting; %> 
+                              <% var date2 = new Date(); %> 
+                              <% var Difference_In_Time = date2.getTime() - date1; %> 
+                              <% var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); %>
+                              <% Difference_In_Time_Hours = Difference_In_Time / (1000 * 3600) %>
+                              <% Difference_In_Time_Mins = Difference_In_Time / (1000 * 60) %>
+                              <% if( parseInt(Difference_In_Days) >= 7  ){ %> 
+                                  <span class="mb-1 ml-2">
+                                  <%= eachCmnt.date.slice(0,11) %> </span>
+                              <%}else if(Difference_In_Days > 1){ %> 
+                                  <span class="mb-1 ml-2">
+                                  <%= parseInt(Difference_In_Days) %> days ago</span>
+                              <%}else if( Difference_In_Time_Hours > 1 ){ %> 
+                                  <span class="mb-1 ml-2">
+                                  <%= parseInt(Difference_In_Time_Hours) %> hrs ago</span>
+                              <%}else if( parseInt(Difference_In_Time_Mins) != 0) { %> 
+                                  <span>
+                                  <%= parseInt(Difference_In_Time_Mins) %> mins ago</span>
+                              <%}else { %> 
+                                  <span class="mb-1 ml-2">
+                                  just now</span>
+                              <%} %>
+                            </div>
+                            <div class="comment-text-sm pl-5"><span> <%= eachReply.content %> </span></div>
+                            <div class="reply-section pl-5">
+                              <div class="d-flex flex-row align-items-center voting-icons">
+                                <a href="/likeComment-<%=eachReply.id%>-of-<%=post.id%>" class="text-white">
+                                  <% if(eachReply.likedBy.filter( eachLike => { %> 
+                                    <% if(eachLike != null){ %> 
+                                      <% return eachLike == user.id %>  
+                                    <%} %>
+                                  <%} ).length != 0 ){ %> 
+                                    <i class="fa fa-check px-2 py-1"></i>
+                                  <%}else {%> 
+                                    <i class=" ni ni-like-2"></i>
+                                  <%} %>
+                                  <span class="ml-2"><%=eachReply.likes%> </span>
+                                </a>
+                                <% if(post.owner.id == user.id || eachReply.commentBy == user.id ){ %> 
+                                  <span class="mr-2 dot"></span>
+                                  <span class="ml-1">
+                                  <a href="/deleteComment-<%=eachReply.id%>-of-<%=post.id%>" class="text-red">
+                                      <i class="ni ni-square-pin"></i>Delete
+                                    </a>
+                                  </span>
+                              <%} %>
+                              </div>
+                            </div>
+                          </div>
+                      <%} ) %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>    
+        <%} ) %>
+    <!-- Footer -->
+    <% include ../partials/footer %> 
+  </div>
+  </div>
+  <% include ../partials/scripts %> 
+  <script>
+    $(document).ready(function () {
+
+
+
+      $('#collapse-1').on('shown.bs.collapse', function () {
+
+        $(".servicedrop").addClass('fa-chevron-up').removeClass('fa-chevron-down');
+      });
+
+      $('#collapse-1').on('hidden.bs.collapse', function () {
+        $(".servicedrop").addClass('fa-chevron-down').removeClass('fa-chevron-up');
+      });
+
+    });
+    var caption = $('#caption1').text().trim();
+    console.log( "------------ " + caption + " :")
+    $("#edit-post-btn").click(function (event) {
+      $('#edit-area').val(caption);
+    }); 
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<% include ../partials/header %> 
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %> 
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <% include ../partials/about %> 
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-2 ">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark m-0 ">
+                  <li class="breadcrumb-item h2 active text-dark m-0" aria-current="page">Welcome <span
+                      class="text-purple"> @<%=user.username%></span></li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card bg-default shadow">
+            <div class="card-header bg-transparent border-0">
+              <h3 class="text-white mb-0">Friend Requests</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-dark table-flush">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">User</th>
+                    <th scope="col" class="sort" data-sort="budget">UserName</th>
+                    <th scope="col" class="sort" data-sort="status">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  <% user.sentFriendRequest.forEach( (requestSent) => { %> 
+                    <% if(requestSent != null){ %> 
+                    <tr data-href="messages-all.html">
+                      <th scope="row">
+                        <div class="media align-items-center">
+                          <a href="/view-<%=requestSent.id%>" class="avatar rounded-circle mr-3">
+                            <% if(requestSent.profilePic == 'null'){ %> 
+                              <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
+                            <%}else{ %> 
+                              <img alt="Image placeholder" src="<%=requestSent.profilePic%>">
+                            <%} %>
+                          </a>
+                          <div class="media-body">
+                            <span class="name mb-0 text-sm"> <%= requestSent.username %> </span>
+                          </div>
+                        </div>
+                      </th>
+                      <td class="budget">
+                        @<%= requestSent.username %>
+                      </td>
+                      <td>
+                        <div class="responserequest pr-3">
+                          <a href="/cancelFriendRequest-<%=requestSent.id%>" class="btn bg-danger text-white">Cancel</a>
+                        </div>
+                      </td>
+                    </tr>
+                    <%} %>
+                  <%} ) %>
+                  <% user.receivedFriendRequest.forEach( requestReceived => { %> 
+                    <% if(requestReceived != null){ %> 
+                    <tr data-href="messages-all.html">
+                      <th scope="row">
+                        <div class="media align-items-center">
+                          <a href="/view-<%=requestReceived.id%>" class="avatar rounded-circle mr-3">
+                            <% if(requestReceived.profilePic == 'null'){ %> 
+                              <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
+                            <%}else{ %> 
+                              <img alt="Image placeholder" src="<%=requestReceived.profilePic%>">
+                            <%} %>
+                          </a>
+                          <div class="media-body">
+                            <span class="name mb-0 text-sm"> <%= requestReceived.username %> </span>
+                          </div>
+                        </div>
+                      </th>
+                      <td class="budget">
+                        @<%= requestReceived.username %>
+                      </td>
+                      <td>
+                        <div class="responserequest pr-3">
+                          <a href="/acceptFriendRequest-<%=requestReceived.id%>" class="btn bg-success text-white">Confirm</a>
+                          <a href="/declineFriendRequest-<%=requestReceived.id%>" class="btn bg-danger text-white">Reject</a>
+                        </div>
+                      </td>
+                    </tr>
+                    <%} %>
+                  <%} ) %>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer class="footer pt-0 pl-5 bg-default">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted">
+              &copy; 2020 <a href="#" class="font-weight-bold ml-1" target="_blank">RyZit</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+
+  <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
+  <script>
+    $('tr[data-href]').on("click", function () {
+      document.location = $(this).data('href');
+    });</script>
+
+</body>
+
+</html>

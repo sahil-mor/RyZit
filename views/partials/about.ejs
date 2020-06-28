@@ -1,0 +1,189 @@
+<div class="modal fade" id="modal-about" tabindex="-1" role="dialog" aria-labelledby="modal-about"
+      aria-hidden="true">
+      <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content text-white " style="background-color: var(--purple);">
+
+          <div class="modal-header">
+            <h6 class="modal-title text-white" id="modal-title-notification">About RyZit</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+
+            <style>
+              .our-team {
+                padding: 30px 0 40px;
+                margin-bottom: 30px;
+                background-color: #f7f5ec;
+                text-align: center;
+                overflow: hidden;
+                position: relative;
+                border-radius: 20px;
+              }
+
+              .our-team .picture {
+                display: inline-block;
+                height: 130px;
+                width: 130px;
+                margin-bottom: 50px;
+                z-index: 1;
+                position: relative;
+              }
+
+              .our-team .picture::before {
+                content: "";
+                width: 100%;
+                height: 0;
+                border-radius: 50%;
+                background-color: #1369ce;
+                position: absolute;
+                bottom: 135%;
+                right: 0;
+                left: 0;
+                opacity: 0.9;
+                transform: scale(3);
+                transition: all 0.3s linear 0s;
+              }
+
+              .our-team:hover .picture::before {
+                height: 100%;
+              }
+
+              .our-team .picture::after {
+                content: "";
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background-color: #1369ce;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+              }
+
+              .our-team .picture img {
+                width: 100%;
+                height: auto;
+                border-radius: 50%;
+                transform: scale(1);
+                transition: all 0.9s ease 0s;
+              }
+
+              .our-team:hover .picture img {
+                box-shadow: 0 0 0 14px #f7f5ec;
+                transform: scale(0.7);
+              }
+
+              .our-team .title {
+                display: block;
+                font-size: 15px;
+                color: #4e5052;
+                text-transform: capitalize;
+              }
+
+              .our-team .social {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                background-color: #1369ce;
+                position: absolute;
+                bottom: -100px;
+                left: 0;
+                transition: all 0.5s ease 0s;
+              }
+
+              .our-team:hover .social {
+                bottom: 0;
+              }
+
+              .our-team .social li {
+                display: inline-block;
+              }
+
+              .our-team .social li a {
+                display: block;
+                padding: 10px;
+                font-size: 17px;
+                color: white;
+                transition: all 0.3s ease 0s;
+                text-decoration: none;
+              }
+
+              .our-team .social li a:hover {
+                color: #1369ce;
+                background-color: #f7f5ec;
+              }
+            </style>
+
+            <div class="py-3">
+              <div class="container">
+                <div class="row">
+                  <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="our-team">
+                      <div class="picture">
+                        <img class="img-fluid"
+                          src="https://media-exp1.licdn.com/dms/image/C5603AQFXi2ncAb_Qgg/profile-displayphoto-shrink_400_400/0?e=1599091200&v=beta&t=-hMfneGBH0G_ov5YRAzpi64vwvvkNAt9ME68s_bTGkU">
+                      </div>
+                      <div class="team-content">
+                        <h3 class="name">Abhishek Sheoran</h3>
+                        <h4 class="title">Full Stack Web Developer <br> Graphic Designer </h4>
+                      </div>
+                      <ul class="social">
+                        <li> <a target="_blank" href="https://www.linkedin.com/in/abhishek-sheoran-248189175/"><i class="fa fa-linkedin"
+                              aria-hidden="true"></i> </a></li>
+                        <li> <a target="_blank" href="https://www.facebook.com/abhisheksheoran123"><i class="fa fa-facebook-square"
+                              aria-hidden="true"></i> </a></li>
+                        <li> <a target="_blank" href="https://www.github.com/sheoranabhishek"><i class="fa fa-github"
+                              aria-hidden="true"></i> </a></li>
+                        <li> <a target="_blank" href="https://www.abhisheksheoran.uno"><i class="fa fa-globe" aria-hidden="true"></i>
+                          </a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="our-team">
+                      <div class="picture">
+                        <img class="img-fluid"
+                          src="https://avatars1.githubusercontent.com/u/43886039?s=460&u=659b1f4b19cfeefd5a1bcb38d63c94b9742b2ec4&v=4">
+                      </div>
+                      <div class="team-content">
+                        <h3 class="name">Sahil Mor</h3>
+                        <h4 class="title">Full Stack Web Developer <br> NodeJS | React Native </h4>
+                      </div>
+                      <ul class="social">
+                        <li> <a target="_blank" href="https://www.linkedin.com/in/sahil-mor-65017b179/"><i class="fa fa-linkedin"
+                          aria-hidden="true"></i> </a></li>
+                        <li> <a target="_blank" href="https://www.instagram.com/sahil_mor_370/"><i class="fa fa-instagram"
+                              aria-hidden="true"></i> </a></li>
+                        <li> <a target="_blank" href="https://github.com/sahil-mor"><i class="fa fa-github" aria-hidden="true"></i> </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="text-center mb-5">
+
+                <h4 class="heading mt-3 text-white">We Welcome You To RyZit !</h4>
+              </div>
+              <p class="text-left text-white">
+                <b>This website has been developed by Sahil Mor & Abhishek Sheoran. We are sophomore , currently
+                  pursuing
+                  Computer Science & Engineering at Thapar Institute of Engineering & Technology,
+                  Patiala ,Punjab. We are delighted to welcome you to the website.
+                </b>
+              </p>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>

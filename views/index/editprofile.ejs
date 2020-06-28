@@ -1,0 +1,139 @@
+<% include ../partials/header %> 
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %>
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <% include ../partials/about %> 
+    <div class="header pb-6 d-flex align-items-center"
+      style="min-height: 100px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-12 order-xl-1">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Edit profile </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="/editProfile" method="POST" >
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Username</label>
+                        <input type="text" id="input-username" required class="form-control" placeholder="Username"
+                          name="username" value="<%=user.username%>">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Mobile Number</label>
+                        <input type="number" id="input-email" class="form-control" placeholder="Mobile Number"
+                        name="mobileNumber" required value="<%=user.mobileNumber%>">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">First name</label>
+                        <input type="text" id="input-first-name" class="form-control" placeholder="First name"
+                        name="firstName"  value="<%=user.firstName%>">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Last name</label>
+                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name"
+                        name="lastName"  value="<%=user.lastName%>">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Address</label>
+                        <input id="input-address" class="form-control" placeholder="Home Address"
+                          value="<%=user.address%>" name="address" type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">City</label>
+                        <input type="text" id="input-city" name="city" class="form-control" placeholder="City" value="<%=user.city%>">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Country</label>
+                        <input type="text" id="input-country" class="form-control" placeholder="Country"
+                          value="<%=user.country%>" name="country" >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Description -->
+                <h6 class="heading-small text-muted mb-4">About me</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Job</label>
+                        <input type="text" id="input-country" class="form-control" placeholder="What do you do"
+                          value="<%=user.job%>" name="job" >
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">School/College/Place Where You Work</label>
+                        <input type="text" id="input-country" class="form-control" placeholder="School/College/Place Where You Work"
+                          value="<%=user.workStation%>" name="workStation" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">About Me</label>
+                    <textarea rows="4" class="form-control"
+                      placeholder="A few words about you ..." name="about" > <%= user.about %> </textarea>
+                  </div>
+                </div>
+                <div class="col-12 text-center text-right">
+                  <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+    <% include ../partials/footer %> 
+    </div>
+  </div>
+  <!-- Argon Scripts -->
+  <% include ../partials/scripts %> 
+</body>
+
+</html>

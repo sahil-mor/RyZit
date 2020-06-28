@@ -1,0 +1,116 @@
+<% include ../partials/header %> 
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %> 
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <% include ../partials/about %> 
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-2 ">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark m-0 ">
+                  <li class="breadcrumb-item h2 active text-dark m-0" aria-current="page">Welcome <span
+                      class="text-purple"> @<%=user.username%></span></li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+
+      <!-- Dark table -->
+      <div class="row">
+        <div class="col">
+          <div class="card bg-default shadow">
+            <div class="card-header bg-transparent border-0">
+              <h3 class="text-white mb-0">All Notifications</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-dark table-flush">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">User</th>
+                    <th scope="col" class="sort" data-sort="budget">Title</th>
+                    <th scope="col" class="sort" data-sort="status">Time</th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  <% user.notifications.forEach( (eachNotification) => {%> 
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <% if(eachNotification.pic == 'null'){ %> 
+                        <a href="<%=eachNotification.redirectingLink%>" class="avatar rounded-circle mr-3">
+                          <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
+                        </a>
+                        <%}else {%> 
+                          <a href="<%=eachNotification.redirectingLink%>" class="avatar rounded-circle mr-3">
+                            <img alt="Image placeholder" src="<%=eachNotification.pic%>">
+                          </a>
+                        <%} %>
+                        <div class="media-body">
+                          <span class="name mb-0 text-sm"> <%= eachNotification.username %> </span>
+                        </div>
+                      </div>
+                    </th>
+                    <td class="budget">
+                      <%= eachNotification.title %>
+                    </td>
+                    <td>
+                      <span class="badge badge-dot mr-4">
+                        <% var date1 = eachNotification.time; %> 
+                        <% var date2 = new Date(); %> 
+                        <% var Difference_In_Time = date2.getTime() - date1.getTime(); %> 
+                        <% var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); %>
+                        <% Difference_In_Time_Hours = Difference_In_Time / (1000 * 3600) %>
+                        <% Difference_In_Time_Mins = Difference_In_Time / (1000 * 60) %>
+                        <% var months = ['Jan','Feb','Mar','April','May','June','July','August','Sept','Oct','Nov','Dec'] %>
+                        <div class="text-right text-muted">
+                          <% if( parseInt(Difference_In_Days) >= 7 ){ %>
+                            <small><%= eachNotification.time.getDate() %> <%= months[eachNotification.time.getMonth()] %>
+                              <%= eachNotification.time.getFullYear() %>  </small>
+                          <%}else if(Difference_In_Days > 1){ %> 
+                            <span class="status"><%= parseInt(Difference_In_Days) %> days ago</span>
+                          <%}else if( Difference_In_Time_Hours > 1 ){ %> 
+                            <span class="status"><%= parseInt(Difference_In_Time_Hours) %> hrs ago</span>
+                          <%}else if( parseInt(Difference_In_Time_Mins) != 0) { %> 
+                            <small><%= parseInt(Difference_In_Time_Mins) %> mins ago</small>
+                          <%}else { %> 
+                            <small>just now</small>
+                          <%} %>
+                      </span>
+                    </td>
+                  </tr>
+                  <%} ) %>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+    <% include ../partials/footer %> 
+    </div>
+  </div>
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <% include ../partials/scripts %> 
+  <script>
+    $('tr[data-href]').on("click", function () {
+      document.location = $(this).data('href');
+    });</script>
+
+</body>
+
+</html>

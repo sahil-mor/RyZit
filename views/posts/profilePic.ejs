@@ -1,0 +1,60 @@
+<% include ../partials/header %> 
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %> 
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header pb-6 d-flex align-items-center"
+      style="min-height: 100px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+
+        <div class="col-xl-12 order-xl-1">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">New Profile Picture </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form enctype="multipart/form-data" method="POST" action="/profilePicture">
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Upload Photo</label>
+                        <input id="input-username"  name="image" type="file" accept="image/*" class="form-control" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4 text-right">
+                  <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+                  <a href="/profile" class="btn btn-sm btn-secondary">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <% include ../partials/footer %> 
+    </div>
+  </div>
+  <!-- Argon Scripts -->
+  <% include ../partials/scripts %> 
+</body>
+
+</html>

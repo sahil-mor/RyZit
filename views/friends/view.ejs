@@ -1,0 +1,118 @@
+<% include ../partials/header %> 
+<body>
+  <!-- Sidenav -->
+  <% include ../partials/sidenav %> 
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <% include ../partials/topnav %> 
+    <!-- Header -->
+    <!-- Header -->
+    <% include ../partials/about %> 
+    <div class="header pb-6 d-flex align-items-center" style="max-height: 200px;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-12 order-xl-4">
+          <div class="card card-profile">
+            <img src="../assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                    <% if(data.profilePic == "null"){ %> 
+                      <img src="../assets/img/brand/favicon.png" class="rounded-circle">
+                    <%}else { %> 
+                      <img src="<%=data.profilePic%>" class="rounded-circle">
+                    <% } %>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <% if(user.friends.includes(data.id) ){ %>
+                  <a href="/unfriend-<%=data.id%>" class="btn btn-sm btn-danger  mr-4 ">Unfriend</a>
+                <%}else if( user.sentFriendRequest.filter( (eachRq) => { %> 
+                  <% if(eachRq != null){ %> 
+                    <% return eachRq.id == data.id %>
+                  <%} %>
+                  <%} ).length != 0) { %> 
+                  <a href="/cancelFriendRequest-<%=data.id%>" class="btn btn-sm btn-danger  mr-4 ">Cancel Friend Request</a>
+                <% }else if(user.receivedFriendRequest.filter( (eachRq) => { %> 
+                  <% if(eachRq != null){ %> 
+                    <% return eachRq.id == data.id %>
+                  <% } %>
+                  <%} ).length != 0) { %> 
+                  <a href="/acceptFriendRequest-<%=data.id%>" class="btn btn-sm btn-success  mr-4 ">Accept Friend Request</a>
+                  <a href="/declineFriendRequest-<%=data.id%>" class="btn btn-sm btn-danger  mr-4 ">Decline Friend Request</a>
+                <%}else{ %> 
+                  <a href="/sendFriendRequest-<%=data.id%>" class="btn btn-sm btn-info  mr-4 ">Send Friend Request</a>
+                <%} %>
+                <a href="/messages-<%=data.id%>" class="btn btn-sm btn-default float-right">Send Message</a>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center">
+                    <div>
+                      <span class="heading"> <%= data.numberFriend %> </span>
+                      <% if(user.friends.includes(data.id) ){ %> 
+                        <a href="/friendsOf-<%=data.id%>">
+                          <span class="description">Friends</span>
+                        </a>
+                      <%}else{ %> 
+                        <span class="description">Friends</span>
+                      <%} %>
+                    </div>
+                    <div>
+                      <span class="heading"> <%= data.numberPost %> </span>
+                      <% if(user.friends.includes(data.id) ){ %> 
+                        <a href="/postsOf-<%=data.id%>">
+                          <span class="description">Posts</span>
+                        </a>
+                      <%}else{ %> 
+                        <span class="description">Posts</span>
+                      <%} %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h5 class="h3">
+                  <%= data.dataname %>
+                </h5>
+                <% if( data.location != "" ) { %> 
+                <div class="h5 font-weight-300">
+                  <i class="ni location_pin mr-2"></i> 
+                   <%= data.address %>  
+                </div>
+                <%} if( data.about != "" ) { %> 
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>  
+                  <%= data.about %>  
+                </div>
+                <%}  if( data.workStation != "" ) { %> 
+                <div>
+                  <i class="ni education_hat mr-2"></i> 
+                  <%= data.workStation %>  
+                </div>
+                <%} %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+      <!-- Footer -->
+      <% include ../partials/footer %> 
+    </div>
+  </div>
+  <% include ../partials/scripts %> 
+</body>
+
+</html>
