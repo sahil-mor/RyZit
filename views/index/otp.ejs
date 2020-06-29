@@ -1,0 +1,103 @@
+<% include ../partials/header %>  
+<body class="bg-default">
+  <!-- Navbar -->  
+  <% include ../partials/topnavOfLogin %> 
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+      <div class="container">
+        <div class="header-body text-center mb-7">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+              <img src="/assets/img/brand/blue.png" alt="" height="100px">
+              <p class="text-lead text-white">Your Social Network.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="card bg-secondary border-0">
+
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>OTP Verification</small>
+              </div>
+              <form role="form" method="POST" action="/verifyEmail-<%=otpId%>" >
+                <div class="row my-4">
+                  <div class="col-12">
+                    <span class="text-muted">An OTP has been sent to your email ending with 
+                      ********<%=email.slice(email.length-14,email.length)%> <br>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" name="enteredOtp" required placeholder="Enter OTP" type="number">
+                  </div>
+                </div>
+
+                <div class="row my-4">
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                  </div>
+                </div>
+                <div style="height: 20px;"></div>
+                <% if(error && error.length > 0){ %>
+                  <div class="text-center alert alert-danger">
+                    <%= error %>
+                  </div>
+                <% } %>
+                <% if(success && success.length > 0){ %>
+                  <div class="text-center alert alert-success">
+                    <%= success %>
+                  </div>
+                <% } %>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="py-5" id="footer-main">
+    <div class="container">
+      <div class="row align-items-center justify-content-xl-between">
+        <div class="col-xl-6">
+          <div class="copyright text-center text-xl-left text-muted">
+            &copy; 2020 <a href="#" class="font-weight-bold ml-1" target="_blank">RyZit</a>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
+</body>
+
+</html>

@@ -10,7 +10,7 @@ var friendRoutes = require("./routes/friends")
 var indexRoutes = require("./routes/index")
 var postRoutes = require("./routes/posts")
 var messageRoutes = require("./routes/messages")
-
+var otpRoutes = require("./routes/otp")
 
 app = express();
 app.use(express.static("public"))
@@ -19,7 +19,7 @@ app.set("view engine","ejs")
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(methodOverride("_method"));
 
-mongoose.connect("mongodb+srv://SahilMor:Sahil@14@cluster0-fhn8u.mongodb.net/test" ,  { useUnifiedTopology: true,useNewUrlParser : true })
+mongoose.connect("mongodb+srv://SahilMor:Sahil@14@cluster0-fhn8u.mongodb.net/ryzit" ,  { useUnifiedTopology: true,useNewUrlParser : true })
 
 var userSchema = require("./models/index/userSchema")
 User = mongoose.model("User",userSchema)
@@ -42,11 +42,11 @@ passport.use(new LocalStratergy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-
 app.use(friendRoutes)
 app.use(indexRoutes)
 app.use(postRoutes)
 app.use(messageRoutes)
+app.use(otpRoutes)
 
 app.get("/*",(req,res)=>{
     res.render("404error")

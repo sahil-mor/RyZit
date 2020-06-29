@@ -5,7 +5,7 @@ var Post = mongoose.model("Post",postSchema)
 var notificationSchema = require("./notificationSchema")
 var Notification = mongoose.model("Notification",notificationSchema)
 var userSchema = new mongoose.Schema({
-    mobileNumber : Number,
+    email : String,
     username : String,
     password : String,
     friends : [
