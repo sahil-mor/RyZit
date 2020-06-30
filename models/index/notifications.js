@@ -8,11 +8,11 @@ Notification = (req,res)=>{
     .populate("receivedFriendRequest")
     .populate("sentFriendRequest")
     .populate({
-                            path : 'messageList',
-                            populate : {
-                            path : 'user',
-                            }
-                        })
+        path : 'messageList',
+        populate : {
+            path : 'user',
+        }
+    })
     .exec(function(err,user) {
         if(err){
             console.log(err)

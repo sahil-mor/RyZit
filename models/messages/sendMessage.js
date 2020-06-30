@@ -17,9 +17,12 @@ function sendMessage(req,res){
                     req.flash("error","Unexpected Error Occured!!!")
                     res.redirect("/messages-" + req.params.messageReceiver )
                 }else{
-                    now = new Date();
-                    Dates = dateformat(now, 'mmm d yyyy h:MM:ss TT');
-                    var Times = dateformat(now, 'h:MM TT')
+                    var currentTime = new Date();
+                    var currentOffset = currentTime.getTimezoneOffset();
+                    var ISTOffset = 330;   // IST offset UTC +5:30
+                    var today = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+                    Dates = dateformat(today, 'mmm d yyyy h:MM:ss TT');
+                    var Times = dateformat(today, 'h:MM TT')
                     newMessage ={
                         data : req.body.message,
                         sender : messageSender,

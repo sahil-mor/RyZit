@@ -786,6 +786,9 @@
     #frame .content .message-input .wrap button:focus {
       outline: none;
     }
+    ul{
+      padding-left: 0px;
+    }
   </style>
   <!-- Sidenav -->
   <% include ../partials/sidenav %> 
@@ -800,14 +803,7 @@
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
-            <div class="col-lg-6 col-7">
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-2 ">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark m-0 ">
-                  <li class="breadcrumb-item h2 active text-dark m-0" aria-current="page">Welcome <span
-                      class="text-purple"> @<%=user.username%> </span></li>
-                </ol>
-              </nav>
-            </div>
+           
           </div>
         </div>
       </div>
@@ -878,13 +874,14 @@
               </div>
               <div class="content" style="background-color: #172b4d;">
                 <div class="contact-profile bg-gradient-dark text-white border-bottom">
+                  <a href="/view-<%=messageReceiver.id%>">
                   <% if(messageReceiver.profilePic != 'null'){ %> 
                     <img src="<%=messageReceiver.profilePic%>" alt="" />
                   <%}else{ %> 
                     <img src="../assets/img/brand/favicon.png" alt="" />
                   <%} %>
-                  <p style="margin-top: 1%;"> <%= messageReceiver.username %> </p>
-
+                  <p style="margin-top: 1%;color: white;"> <%= messageReceiver.username %> </p>
+                </a>
                 </div>
                 <div class="messages">
                   <ul>
