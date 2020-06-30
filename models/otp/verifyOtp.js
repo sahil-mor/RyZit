@@ -51,7 +51,7 @@ verifyOtp = (req,res) => {
                                 OTP.findByIdAndDelete(req.params.otpId,(err,deletedOtp) => {
                                     if(err){
                                         console.log(err)
-                                        req.flash("error","SOME ERROR OCCUR,TRY AGAIN")
+                                        req.flash("error","SOME ERROR OCCURED,TRY AGAIN")
                                         res.redirect("/index")
                                     }else{
                                         req.flash("success","Hello " + newUser.username + "... Login To Continue!!!" )
