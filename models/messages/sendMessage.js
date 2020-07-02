@@ -54,8 +54,8 @@ function sendMessage(req,res){
                                 requiredMsgList.lastMessage = newMessage.data
                                 requiredMsgList.date = Dates;
                                 requiredMsgList.time = Times;
-                                requiredMsgList.timeOfPosting = now;
-                                // now shift it to index 0
+                                requiredMsgList.timeOfPosting = today;
+                                // today shift it to index 0
                                 var newList = currentMsgList.slice(0,requiredIndex)
                                 newList = newList.concat(currentMsgList.slice(requiredIndex+1,currentMsgList.length))
                                 currentMsgList = [requiredMsgList]
@@ -67,7 +67,7 @@ function sendMessage(req,res){
                                     lastMessage : newMessage.data,
                                     date : Dates,
                                     time : Times,
-                                    timeOfPosting : now
+                                    timeOfPosting : today
                                 }
                                 messageSender.messageList.unshift(newOne)
                             }
@@ -85,8 +85,8 @@ function sendMessage(req,res){
                                 requiredMsgList.lastMessage = newMessage.data
                                 requiredMsgList.date = Dates;
                                 requiredMsgList.time = Times;
-                                requiredMsgList.timeOfPosting = now;
-                                // now shift it to index 0
+                                requiredMsgList.timeOfPosting = today;
+                                // today shift it to index 0
                                 var newList = currentMsgList.slice(0,requiredIndex)
                                 newList = newList.concat(currentMsgList.slice(requiredIndex+1,currentMsgList.length))
                                 currentMsgList = [requiredMsgList]
@@ -98,7 +98,7 @@ function sendMessage(req,res){
                                     lastMessage : newMessage.data,
                                     date : Dates,
                                     time : Times,
-                                    timeOfPosting : now
+                                    timeOfPosting : today
                                 }
                                 messageReceiver.messageList.unshift(newOne)
                             }
