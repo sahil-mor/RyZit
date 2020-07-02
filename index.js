@@ -19,7 +19,7 @@ app.set("view engine","ejs")
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(methodOverride("_method"));
 
-mongoose.connect("mongodb://localhost:27017/ryzit" ,  { useUnifiedTopology: true,useNewUrlParser : true })
+mongoose.connect("mongodb+srv://SahilMor:Sahil@14@cluster0-fhn8u.mongodb.net/ryzit" ,  { useUnifiedTopology: true,useNewUrlParser : true })
 
 var userSchema = require("./models/index/userSchema")
 User = mongoose.model("User",userSchema)
