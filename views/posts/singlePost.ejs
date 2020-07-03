@@ -66,31 +66,33 @@
                         </thead>
                         <tbody class="list">
                           <% post.likedBy.forEach( eachLike => { %> 
-                            <tr data-href="">
-                              <th scope="row">
-                                <div class="media align-items-center">
-                                  <a href="/view-<%=eachLike.id%>" class="avatar rounded-circle mr-3">
-                                    <% if(eachLike.profilePic == 'null'){ %> 
-                                      <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
-                                    <%}else{ %> 
-                                      <img alt="Image placeholder" src="<%=eachLike.profilePic%>">
-                                    <%} %>
-                                  </a>
-                                  <div class="media-body">
-                                    <span class="name mb-0 text-sm"> 
-                                      <% if(eachLike.firstName != "" && eachLike.lastName != ""){ %> 
-                                        <%= eachLike.firstName %> <%= eachLike.lastName%>
+                            <% if(eachLike != null){ %> 
+                              <tr data-href="">
+                                <th scope="row">
+                                  <div class="media align-items-center">
+                                    <a href="/view-<%=eachLike.id%>" class="avatar rounded-circle mr-3">
+                                      <% if(eachLike.profilePic == 'null'){ %> 
+                                        <img alt="Image placeholder" src="../assets/img/brand/favicon.png">
                                       <%}else{ %> 
-                                        <%= eachLike.username %>
+                                        <img alt="Image placeholder" src="<%=eachLike.profilePic%>">
                                       <%} %>
-                                       </span>
+                                    </a>
+                                    <div class="media-body">
+                                      <span class="name mb-0 text-sm"> 
+                                        <% if(eachLike.firstName != "" && eachLike.lastName != ""){ %> 
+                                          <%= eachLike.firstName %> <%= eachLike.lastName%>
+                                        <%}else{ %> 
+                                          <%= eachLike.username %>
+                                        <%} %>
+                                        </span>
+                                    </div>
                                   </div>
-                                </div>
-                              </th>
-                              <td class="budget">
-                                @<%=eachLike.username%>
-                              </td>
-                            </tr>
+                                </th>
+                                <td class="budget">
+                                  @<%=eachLike.username%>
+                                </td>
+                              </tr>
+                            <%} %>
                           <%} ) %>
                         </tbody>
                       </table>
@@ -223,9 +225,9 @@
                 <a
                   href="<%=post.image%>" target="_blank"> 
                   <div class="chart bg-default content-body" style="background-image: url('<%=post.image%>');
-                  background-position: center;
+                   background-position: center;
                   background-repeat: no-repeat;
-                  background-size: auto; border-radius: 40px;
+                  background-size: cover; border-radius: 40px;
                   box-shadow: 0px 0px 40px 0px rgba(47, 70, 114, 0.82);"
                   >
                   </div>
