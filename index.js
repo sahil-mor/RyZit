@@ -53,6 +53,6 @@ app.get("/*",(req,res)=>{
 })
 
 
-app.listen(process.env.PORT || 3000,function(){
-    console.log("SERVER WORKING AT 3000")
+app.listen(process.env.PORT || 4000,function(){
+    console.log("SERVER WORKING AT 4000")
 })
