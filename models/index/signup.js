@@ -41,13 +41,13 @@ function Signup(req,res){
                                     port: 465,
                                     secure: true,
                                     auth: {
-                                        user: 'ryzit1@gmail.com',
-                                        pass: 'etrikieegnaqqngu'
+                                        user: process.env.EMAIL,
+                                        pass: process.env.PASSWORD
                                     }
                                 })
                                 otp = Math.floor(Math.random() * 1000000)
                                 const mailOpts = {
-                                    from: "ryzit1@gmail.com",
+                                    from: process.env.EMAIL,
                                     to: req.body.email,
                                     subject: 'Verify Email Address',
                                     text: "Hi," + "\n\n" + 

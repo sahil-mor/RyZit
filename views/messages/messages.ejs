@@ -894,9 +894,10 @@
                       <% if( !alreadyUsed.includes(eachMsg.date.slice(0,11)) ){ %> 
                           <% alreadyUsed.push(eachMsg.date.slice(0,11)) %>
                           <div class="date py-3"
-                        style="background-color: rgb(27, 85, 109);
-                      text-align: center; width: 30%; left:50% ; position: relative; transform: translateX(-50%);margin-top:20px ;  border-radius: 30px;">
-                        
+                            style="background-color: rgb(27, 85, 109);
+                                  text-align: center; width: 30%; left:50%;
+                                  top: auto ;height: 50px ;position: relative;
+                                   transform: translateX(-50%); margin-top:20px ;  border-radius: 30px;">
                         <h5 class="text-white "> <%=eachMsg.date.slice(0,11)%> </h5>
                       </div>
                       <%} %>

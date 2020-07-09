@@ -6,6 +6,9 @@ var passport = require("passport")
 var LocalStratergy = require("passport-local")
 var flash =  require("connect-flash")
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 var friendRoutes = require("./routes/friends")
 var indexRoutes = require("./routes/index")
 var postRoutes = require("./routes/posts")
@@ -18,8 +21,8 @@ app.use('/uploads',express.static("uploads"))
 app.set("view engine","ejs")
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(methodOverride("_method"));
-
-mongoose.connect("mongodb+srv://SahilMor:Sahil@14@cluster0-fhn8u.mongodb.net/ryzit" ,  { useUnifiedTopology: true,useNewUrlParser : true })
+// mongodb://localhost:27017/ryzit
+mongoose.connect(process.env.DBURL ,  { useUnifiedTopology: true,useNewUrlParser : true })
 
 var userSchema = require("./models/index/userSchema")
 User = mongoose.model("User",userSchema)
@@ -48,11 +51,16 @@ app.use(postRoutes)
 app.use(messageRoutes)
 app.use(otpRoutes)
 
+app.get("/offline",(req,res) => {
+    res.render("offline/offline")
+} )
+
 app.get("/*",(req,res)=>{
     res.render("404error")
 })
 
+var port = process.env.PORT || 4000
 
-app.listen(process.env.PORT || 4000,function(){
-    console.log("SERVER WORKING AT 4000")
+app.listen(port,function(){
+    console.log("SERVER WORKING AT " + port )
 })
