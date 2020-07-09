@@ -2,9 +2,9 @@ var STATIC_CACHE = 'static-v2'
 var DYNAMIC_CACHE = 'dynmaic-v1'
 
 var staticFiles = [
-    '/',
-    '/signup',
-    '/offline',
+    'https://ryzit.herokuapp.com',
+    'https://ryzit.herokuapp.com/signup',
+    'https://ryzit.herokuapp.com/offline',
     '../views/index/home.ejs',
     '../views/index/signup.ejs',
     './assets/img/brand/favicon.png',
@@ -54,7 +54,7 @@ function trimCache(cacheName,maxItems){
 }
 
 self.addEventListener('install', (event) => {
-    console.log('[Service worker] installing Service worker ... ')
+    // console.log('[Service worker] installing Service worker ... ')
     event.waitUntil(
         caches.open(STATIC_CACHE)
         .then( cache => {
@@ -64,13 +64,13 @@ self.addEventListener('install', (event) => {
 } )
 
 self.addEventListener('activate', (event) => {
-    console.log('[Service worker] activating Service worker ... ')
+    // console.log('[Service worker] activating Service worker ... ')
     event.waitUntil(
         caches.keys()
           .then(function(keyList) {
             return Promise.all(keyList.map(function(key) {
               if (key !== STATIC_CACHE && key !== DYNAMIC_CACHE) {
-                console.log('[Service Worker] Removing old cache.', key);
+                // console.log('[Service Worker] Removing old cache.', key);
                 return caches.delete(key);
               }
             }));
@@ -89,13 +89,13 @@ function isInArray(string, array ){
   
 
 self.addEventListener('fetch', (event) => {
-    console.log('[Service worker fetching ....')
-    if( isInArray(event.request.url,staticFiles) ){
-        console.log("was in arr")
-        event.respondWith(
-            caches.match(event.request)
-        )
-    }else{
+    // console.log('[Service worker fetching ....')
+    // if( isInArray(event.request.url,staticFiles) ){
+    //     // console.log("was in arr")
+    //     event.respondWith(
+    //         caches.match(event.request)
+    //     )
+    // }else{
         event.respondWith(
             fetch(event.request)
             .then( res => {
@@ -111,10 +111,10 @@ self.addEventListener('fetch', (event) => {
                 return caches.match(event.request)
                 .then( response => {
                     if(response){
-                        console.log("response found")
+                        // console.log("response found")
                         return response
                     }else{
-                        console.log("offline wala show karna h")
+                        // console.log("offline wala show karna h")
                         return caches.open(STATIC_CACHE)
                         .then(cache => {
                             return cache.match('offline')
@@ -123,7 +123,7 @@ self.addEventListener('fetch', (event) => {
                 } )
             } )
         )
-    }
+    // }
 } )
 
  
