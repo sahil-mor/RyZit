@@ -9,6 +9,8 @@ var flash =  require("connect-flash")
 const dotenv = require('dotenv');
 dotenv.config();
 
+var Subscription = require("./models/subscription/schema")
+
 var friendRoutes = require("./routes/friends")
 var indexRoutes = require("./routes/index")
 var postRoutes = require("./routes/posts")
@@ -20,9 +22,10 @@ app.use(express.static("public"))
 app.use('/uploads',express.static("uploads"))
 app.set("view engine","ejs")
 app.use(bodyParser.urlencoded({extended : true}))
+app.use(bodyParser.json());
 app.use(methodOverride("_method"));
-// mongodb://localhost:27017/ryzit
-mongoose.connect(process.env.DBURL ,  { useUnifiedTopology: true,useNewUrlParser : true })
+
+mongoose.connect("mongodb://localhost:27017/ryzit" ,  { useUnifiedTopology: true,useNewUrlParser : true })
 
 var userSchema = require("./models/index/userSchema")
 User = mongoose.model("User",userSchema)
@@ -50,6 +53,23 @@ app.use(indexRoutes)
 app.use(postRoutes)
 app.use(messageRoutes)
 app.use(otpRoutes)
+
+app.post("/newSubscription",(req,res) => {
+    console.log(req.body)
+    Subscription.create({
+        endpoint : req.body.endpoint,
+        keys : {
+            auth : req.body.keys.auth,
+            p256dh : req.body.keys.p256dh
+        }
+    }, (err,newSubscription) => {
+        if(err){
+            res.status(500).json({ error : err })
+        }else{
+            res.status(200).json({ message : "Data stored" })
+        }
+    } )
+})
 
 app.get("/offline",(req,res) => {
     res.render("offline/offline")

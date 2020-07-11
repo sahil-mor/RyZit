@@ -3,6 +3,8 @@ var userSchema = require("../index/userSchema")
 var postSchema = require("./postSchema")
 var User = mongoose.model("User",userSchema)
 var Post = mongoose.model("Post",postSchema)
+var webpush = require("web-push")
+
 var path = require("path")
 var multer = require("multer")
 var dateformat = require("dateformat")
@@ -16,6 +18,8 @@ var storage = multer.diskStorage({
 var uploads = multer({
     storage : storage,
 }).single('image')
+
+var Subscription = require("../subscription/schema")
 
 function savePost(req,res){
     User.findById(req.user.id).populate("friends").exec(function(err,user){
@@ -97,8 +101,35 @@ function savePost(req,res){
                                             req.flash("error","Cannot Create Post Right Now")
                                             res.redirect("/index")
                                         }else{
-                                            req.flash("success","Post Created Successfully!!!")
-                                            res.redirect("/index")
+                                            webpush.setVapidDetails('mailto:ryzit1@gmail.com','BODNo79y6EjFqHCpKPh-auheD4NH21jWIhaDZt7_uBt9LLg4ZVUJ-8rfMRg47VZWVviLA-pC_awr71lvnt705vs','clFCCVwBLp6rzCZo_LfdFcusSlLa-0CQ8-J77GJUD30')
+                                            Subscription.find({}, (err,subscriptions) => {
+                                                if(err){
+                                                    console.log(err)
+                                                    res.redirect("/index")
+                                                }else{
+                                                    subscriptions.forEach( sub => {
+                                                        console.log(sub)
+                                                        var pushConfig = {
+                                                            endpoint : sub.endpoint,
+                                                            keys : {
+                                                                auth : sub.keys.auth,
+                                                                p256dh : sub.keys.p256dh
+                                                            }
+                                                        };
+                                                        webpush.sendNotification(pushConfig, JSON.stringify({
+                                                            title : 'New Post',
+                                                            content : req.user.username + " added a new post." ,
+                                                            image : req.file.path,
+                                                            openUrl : 'https://ryzit.herokuapp.com/post-' + createdPost.id
+                                                        }) )
+                                                        .catch( err => {
+                                                            console.log(err)
+                                                        } )
+                                                    })
+                                                    req.flash("success","Post Created Successfully!!!")
+                                                    res.redirect("/index")
+                                                }
+                                            } )
                                         }
                                     })
                                 }

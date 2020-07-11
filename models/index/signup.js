@@ -1,12 +1,13 @@
 var mongoose = require("mongoose")
 var userSchema = require("./userSchema")
+var passport = require("passport")
 User = mongoose.model("User",userSchema)
+var dateformat = require('dateformat')
+
 var otpSchema = require("../otp/otpSchema")
 var OTP = mongoose.model("OTP",otpSchema)
 var nodemailer = require('nodemailer');
-
 var otp;
-
 function Signup(req,res){
     if(req.body.confirmPassword !== req.body.password ){
         req.flash("error","PASSWORD ARE NOT THE SAME")
