@@ -54,12 +54,14 @@
                 <span class="nav-link-text">About RyZit</span>
               </a>
             </li>
-            <li id="notification" class="nav-item">
-              <a class="nav-link" href="" data-toggle="modal">
-                <i class="ni ni-bell-55 text-light"></i>
-                <span class="nav-link-text">Enable Notifications</span>
-              </a>
-            </li>
+            <% if(user.notificationSub == false){ %> 
+              <li id="notification" class="nav-item">
+                <a class="nav-link" href="" data-toggle="modal">
+                  <i class="ni ni-bell-55 text-light"></i>
+                  <span class="nav-link-text">Enable Notifications</span>
+                </a>
+              </li>
+            <%} %>
           </ul>
           <!-- Divider -->
           <hr class="my-3">

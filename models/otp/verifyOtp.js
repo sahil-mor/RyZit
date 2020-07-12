@@ -41,7 +41,7 @@ verifyOtp = (req,res) => {
                         numberReceivedRequest : 0,profilePic : "null",coverPic : "null",
                         firstName : "",lastName : "",address : "",city : "",country : "",
                         newNotificationCount : 0,newMsgCount : 0,newRequestCount : 0,messageList : [],
-                        job : "",workStation : "",about : "",timeline : []  }
+                        job : "",workStation : "",about : "",timeline : [],notificationSub: false  }
                         ,foundOTP.password,function(err,newUser){
                             if(err){
                                 console.log(err)

@@ -107,24 +107,23 @@ function savePost(req,res){
                                                     console.log(err)
                                                     res.redirect("/index")
                                                 }else{
+                                                    var friends = user.friends
                                                     subscriptions.forEach( sub => {
-                                                        console.log(sub)
-                                                        var pushConfig = {
-                                                            endpoint : sub.endpoint,
-                                                            keys : {
-                                                                auth : sub.keys.auth,
-                                                                p256dh : sub.keys.p256dh
-                                                            }
-                                                        };
-                                                        webpush.sendNotification(pushConfig, JSON.stringify({
-                                                            title : 'New Post',
-                                                            content : req.user.username + " added a new post." ,
-                                                            image : req.file.path,
-                                                            openUrl : 'https://ryzit.herokuapp.com/post-' + createdPost.id
-                                                        }) )
-                                                        .catch( err => {
-                                                            console.log(err)
-                                                        } )
+                                                        if( friends.includes(sub.uid) ){
+                                                            var pushConfig = {
+                                                                endpoint : sub.endpoint,
+                                                                keys : {
+                                                                    auth : sub.keys.auth,
+                                                                    p256dh : sub.keys.p256dh
+                                                                }
+                                                            };
+                                                            webpush.sendNotification(pushConfig, JSON.stringify({
+                                                                title : 'New Post',
+                                                                content : req.user.username + " added a new post." ,
+                                                                image : req.file.path,
+                                                                openUrl : 'https://ryzit.herokuapp.com/post-' + createdPost.id
+                                                            }) )
+                                                        }
                                                     })
                                                     req.flash("success","Post Created Successfully!!!")
                                                     res.redirect("/index")

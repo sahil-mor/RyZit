@@ -5,6 +5,10 @@ var subscriptionSchema = {
     keys : {
         p256dh : String,
         auth : String
+    },
+    uid : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
     }
 }
 

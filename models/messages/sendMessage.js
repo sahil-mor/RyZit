@@ -4,6 +4,8 @@ var User = mongoose.model("User",userSchema)
 var messageSchema = require("./messageSchema")
 var Message = mongoose.model("Message",messageSchema)
 var dateformat = require("dateformat")
+var webpush = require("web-push")
+var Subscription = require("../subscription/schema")
 function sendMessage(req,res){
     User.findById(req.user.id,function(err,messageSender){
         if(err){
@@ -126,7 +128,33 @@ function sendMessage(req,res){
                                                             req.flash("error","Unexpected Error Occured!!!")
                                                             res.redirect("/messages-" + req.params.messageReceiver )
                                                         }else{
-                                                            res.redirect("/messages-" + req.params.messageReceiver )}
+                                                            webpush.setVapidDetails('mailto:ryzit1@gmail.com','BODNo79y6EjFqHCpKPh-auheD4NH21jWIhaDZt7_uBt9LLg4ZVUJ-8rfMRg47VZWVviLA-pC_awr71lvnt705vs','clFCCVwBLp6rzCZo_LfdFcusSlLa-0CQ8-J77GJUD30')
+                                                            Subscription.find({}, (err,subscriptions) => {
+                                                                if(err){
+                                                                    console.log(err)
+                                                                    res.redirect("/index")
+                                                                }else{
+                                                                    subscriptions.forEach( sub => {
+                                                                        if( req.params.messageReceiver == sub.uid  ){
+                                                                            var pushConfig = {
+                                                                                endpoint : sub.endpoint,
+                                                                                keys : {
+                                                                                    auth : sub.keys.auth,
+                                                                                    p256dh : sub.keys.p256dh
+                                                                                }
+                                                                            };
+                                                                            console.log("sending notification to " + sub.uid)
+                                                                            webpush.sendNotification(pushConfig, JSON.stringify({
+                                                                                title : messageSender.username,
+                                                                                content :  createdMessage.data,
+                                                                                openUrl : 'https://ryzit.herokuapp.com/messages-' + messageSender.id
+                                                                            }) )
+                                                                        }
+                                                                    })
+                                                                    res.redirect("/messages-" + req.params.messageReceiver )
+                                                                }
+                                                            } )  
+                                                        }
                                                     })
                                                 }
                                             })

@@ -3,20 +3,22 @@ var userSchema = require("../index/userSchema")
 var User = mongoose.model("User",userSchema)
 var notificationSchema = require("../index/notificationSchema")
 var Notification = mongoose.model("Notification",notificationSchema)
+var webpush = require("web-push")
+var Subscription = require("../subscription/schema")
 var dateformat = require('dateformat')
 
 function acceptRequest(req,res){
     User.findById(req.user.id,function(err,requestReceiver){
         if(err){
             console.log(err)
-            console.log("hi i m here bro 1")
+           
             req.flash("error","Friend Request Not Accepted Successfully")
             res.redirect('/index')
         }else{
             User.findById(req.params.senderOfRequestId,function(err,requestSender){
                 if(err){
                     console.log(err)
-                    console.log("hi i m here bro 2")
+                   
                     req.flash("error","Friend Request Not Accepted Successfully")
                     res.redirect('/index')
                 }else{
@@ -46,7 +48,7 @@ function acceptRequest(req,res){
                         }, (err,newNotification) => {
                             if(err){
                                 console.log(err)
-                                console.log("hi i m here bro 3")
+                               
                                 req.flash("error","Data Not Updated Successfully!!!")
                                 res.redirect('/index')
                             }else{
@@ -60,7 +62,7 @@ function acceptRequest(req,res){
                                 }, (err,newNotification1) => {
                                     if(err){
                                         console.log(err)
-                                        console.log("hi i m here bro 4")
+                                       
                                         req.flash("error","Data Not Updated Successfully!!!")
                                         res.redirect('/index')
                                     }else{
@@ -69,33 +71,63 @@ function acceptRequest(req,res){
                                         requestSender.save(function(err,savedRequestSender){
                                             if(err){
                                                 console.log(err)
-                                                console.log("hi i m here bro 5")
+                                               
                                                 req.flash("error","Data Not Updated Successfully!!!")
                                                 res.redirect('/index')
                                             }else{
                                                 requestReceiver.save(function(err,savedRequestReceiver){
                                                     if(err){
                                                         console.log(err)
-                                                        console.log("hi i m here bro 6")
+                                                       
                                                         req.flash("error","Data Not Updated Successfully!!!")
                                                         res.redirect('/index')
                                                     }else{
                                                         User.findByIdAndUpdate(requestSender['id'],savedRequestSender,function(err,updatedRequestSender){
                                                             if(err){
                                                                 console.log(err)
-                                                                console.log("hi i m here bro 7")
+                                                               
                                                                 req.flash("error","Data Not Updated Successfully!!!")
                                                                 res.redirect('/index')
                                                             }else{
                                                                 User.findByIdAndUpdate(requestReceiver['id'],savedRequestReceiver,function(err,updatedRequestReceiver){
                                                                     if(err){
                                                                         console.log(err)
-                                                                        console.log("hi i m here bro 8")
+                                                                       
                                                                         req.flash("error","Data Not Updated Successfully!!!")
                                                                         res.redirect('/index')
                                                                     }else{
-                                                                        req.flash("success","You Are Now Friends With " + updatedRequestSender['username'] + "!!!")
-                                                                        res.redirect('/view-' + updatedRequestSender.id)
+                                                                        webpush.setVapidDetails('mailto:ryzit1@gmail.com','BODNo79y6EjFqHCpKPh-auheD4NH21jWIhaDZt7_uBt9LLg4ZVUJ-8rfMRg47VZWVviLA-pC_awr71lvnt705vs','clFCCVwBLp6rzCZo_LfdFcusSlLa-0CQ8-J77GJUD30')
+                                                                        Subscription.find({}, (err,subscriptions) => {
+                                                                            if(err){
+                                                                                console.log(err)
+                                                                                res.redirect("/index")
+                                                                            }else{
+                                                                                subscriptions.forEach( sub => {
+                                                                                    if( sub.uid == requestSender.id){
+                                                                                        var image = "https://i.ibb.co/XjFvrkQ/512x512.png"
+                                                                                        if(requestReceiver.profilePic != "null"){
+                                                                                            console.log("i m here")
+                                                                                            image = requestReceiver.profilePic
+                                                                                        }
+                                                                                        var pushConfig = {
+                                                                                            endpoint : sub.endpoint,
+                                                                                            keys : {
+                                                                                                auth : sub.keys.auth,
+                                                                                                p256dh : sub.keys.p256dh
+                                                                                            }
+                                                                                        };
+                                                                                        webpush.sendNotification(pushConfig, JSON.stringify({
+                                                                                            title : 'Friend Request',
+                                                                                            content : req.user.username + " and you are friends now." ,
+                                                                                            image : image,
+                                                                                            openUrl : 'https://ryzit.herokuapp.com/view-' + updatedRequestSender.id
+                                                                                        }) )
+                                                                                    }
+                                                                                })
+                                                                                req.flash("success","You Are Now Friends With " + updatedRequestSender['username'] + "!!!")
+                                                                                res.redirect('/view-' + updatedRequestSender.id)
+                                                                            }
+                                                                        } )           
                                                                     }
                                                                 })
                                                             }

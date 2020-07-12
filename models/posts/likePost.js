@@ -7,6 +7,9 @@ var notificationSchema = require("../index/notificationSchema")
 var Notification = mongoose.model("Notification",notificationSchema)
 var dateformat = require('dateformat')
 
+var webpush = require("web-push")
+var Subscription = require("../subscription/schema")
+
 function addLike(req,res){
     var check = 0;
     wasLiked = false
@@ -91,7 +94,33 @@ function addLike(req,res){
                                     }else{
                                         req.flash("success","You Liked This Post")
                                     }
-                                    res.redirect("/post-" + post.id )
+                                    webpush.setVapidDetails('mailto:ryzit1@gmail.com','BODNo79y6EjFqHCpKPh-auheD4NH21jWIhaDZt7_uBt9LLg4ZVUJ-8rfMRg47VZWVviLA-pC_awr71lvnt705vs','clFCCVwBLp6rzCZo_LfdFcusSlLa-0CQ8-J77GJUD30')
+                                    Subscription.find({}, (err,subscriptions) => {
+                                        if(err){
+                                            console.log(err)
+                                            res.redirect("/index")
+                                        }else{
+                                            subscriptions.forEach( sub => {
+                                                if( post.owner.toString().includes(sub.uid.toString()) ){
+                                                    var pushConfig = {
+                                                        endpoint : sub.endpoint,
+                                                        keys : {
+                                                            auth : sub.keys.auth,
+                                                            p256dh : sub.keys.p256dh
+                                                        }
+                                                    };
+                                                    console.log("sending notification")
+                                                    webpush.sendNotification(pushConfig, JSON.stringify({
+                                                        title : post.caption,
+                                                        content : req.user.username + " liked your post." ,
+                                                        image : post.image,
+                                                        openUrl : 'https://ryzit.herokuapp.com/post-' + post.id 
+                                                    }) )
+                                                }
+                                            })
+                                            res.redirect("/post-" + post.id )
+                                        }
+                                    } )  
                                 }
                             })
                         }

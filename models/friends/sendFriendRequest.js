@@ -1,6 +1,8 @@
 var mongoose = require("mongoose")
 var userSchema = require("../index/userSchema")
 var User = mongoose.model("User",userSchema)
+var webpush = require("web-push")
+var Subscription = require("../subscription/schema")
 function sendRequest(req,res){
     User.findById(req.user.id,function(err,foundUser){
         if(err){
@@ -44,8 +46,38 @@ function sendRequest(req,res){
                                                         req.flash("error","Unexpected Error Occured,Try Again")
                                                         res.redirect('/index')
                                                     }else{
-                                                        req.flash("success","Friend Request Sent Successfully")
-                                                        res.redirect('/view-' + updatedAndSavedRequestedUser.id)
+                                                        webpush.setVapidDetails('mailto:ryzit1@gmail.com','BODNo79y6EjFqHCpKPh-auheD4NH21jWIhaDZt7_uBt9LLg4ZVUJ-8rfMRg47VZWVviLA-pC_awr71lvnt705vs','clFCCVwBLp6rzCZo_LfdFcusSlLa-0CQ8-J77GJUD30')
+                                                        Subscription.find({}, (err,subscriptions) => {
+                                                            if(err){
+                                                                console.log(err)
+                                                                res.redirect("/index")
+                                                            }else{
+                                                                subscriptions.forEach( sub => {
+                                                                    if( sub.uid == updatedAndSavedRequestedUser.id){
+                                                                        var image = "https://i.ibb.co/XjFvrkQ/512x512.png"
+                                                                        if(updatedLoggedInUser.profilePic != "null"){
+                                                                            console.log("i m here")
+                                                                            image = updatedLoggedInUser.profilePic
+                                                                        }
+                                                                        var pushConfig = {
+                                                                            endpoint : sub.endpoint,
+                                                                            keys : {
+                                                                                auth : sub.keys.auth,
+                                                                                p256dh : sub.keys.p256dh
+                                                                            }
+                                                                        };
+                                                                        webpush.sendNotification(pushConfig, JSON.stringify({
+                                                                            title : 'Friend Request',
+                                                                            content : req.user.username + " sent you a friend request." ,
+                                                                            image : image,
+                                                                            openUrl : 'https://ryzit.herokuapp.com/view-' + updatedAndSavedRequestedUser.id
+                                                                        }) )
+                                                                    }
+                                                                })
+                                                                req.flash("success","Friend Request Sent Successfully")
+                                                                res.redirect('/view-' + updatedAndSavedRequestedUser.id)
+                                                            }
+                                                        } )       
                                                     }
                                                 })
                                             }

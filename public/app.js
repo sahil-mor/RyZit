@@ -73,7 +73,7 @@ configurePushSub = () => {
             enableNotification.style.display = 'none'
             displayConfirmNotification()
         }else{
-          alert("Some error occured ... Try Again")
+          alert("You have already subscribed to notifications")
         }
     } )
     .catch(err => {

@@ -109,51 +109,6 @@ self.addEventListener('fetch', (event) => {
     )
 } )
 
-self.addEventListener('sync', event => {
-  console.log('service worker background syncing',event)
-  if( event.tag === 'sync-new-post' ){
-    console.log('service worker syncing new post')
-    event.waitUntil( 
-      readAllData('sync-posts')
-      .then( data => {
-        for( var dt of data ){
-          // fetch('https://pwagram-8e88f.firebaseio.com/posts.json',{
-          fetch('/storePostData',{
-            method : 'POST',
-            headers : {
-              'Content-Type' : 'application/json',
-              'Accept' : 'application/json',
-              
-            },
-            body : JSON.stringify({
-              id : dt.id,
-              title : dt.title,
-              location : dt.location ,
-              image : "https://firebasestorage.googleapis.com/v0/b/instaclone-e5e91.appspot.com/o/ProfileImages%2FSahil--M14QqK1B7G90n6aAeDj%2F55f8480b-ea3d-461c-94d3-ec1bced95e49.jpg?alt=media&token=69fd7dce-e32c-4c30-b148-2f7931e85e59",  
-            }),
-           
-          })
-          .then( res => {
-            console.log('sent data')
-            if(res.ok){
-              res.json()
-              .then( resData => {
-                deleteItemFromDB('sync-posts',resData.id)     
-              } )
-             
-            }
-          })
-          .catch( err => {
-            console.log('error while sending data ',err)
-          } )
-        }
-      
-      } )
-     );
-
-  }
-})
-
 self.addEventListener('notificationclick', event => {
   var notification = event.notification;
   var action = event.action;
@@ -193,18 +148,16 @@ self.addEventListener('push', event => {
   if(event.data){
     data = JSON.parse(event.data.text());
   }
-  // title : 'New Post',
-  // content : req.user.username + " added a new post." ,
-  // image : req.file.path,
-  // openUrl : 'http://localhost:4000/post-' + createdPost.id
   var options = {
     body :  data.content ,
-    icon : './icons/96x96.png',
+    icon : 'https://i.ibb.co/Gczz9Fs/96x96.png',
     image : data.image,
     dir : 'ltr',
     lang : 'en-US' ,//BCP 47
     vibrate : [100,50,200],
-    badge : './icons/96x96.png',
+    badge : 'https://i.ibb.co/Gczz9Fs/96x96.png', 
+    tag : 'confirm-notification', //same ones are show only once
+    renotify : true, // same tag will vibrate
     data : {
       openUrl : data.openUrl
     }

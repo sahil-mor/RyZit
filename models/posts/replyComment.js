@@ -8,9 +8,9 @@ var Comment = mongoose.model("Comment",commentSchema)
 var notificationSchema = require("../index/notificationSchema")
 var Notification = mongoose.model("Notification",notificationSchema)
 var dateformat = require("dateformat")
-
+var webpush = require("web-push")
+var Subscription = require("../subscription/schema")
 function replyComment(req,res){
-    console.log(req.params.commentId + " _ " + req.params.postId)
     Post.findById(req.params.postId,function(err,post){
         if(err){
             console.log(err)
@@ -111,8 +111,34 @@ function replyComment(req,res){
                                                                     req.flash("error","Comment Cannot Be Added Right Now")
                                                                     res.redirect("/post-" + req.params.postId)
                                                                 }else{
-                                                                    req.flash("success","Comment Added Successfully")
-                                                                    res.redirect("/post-" + req.params.postId)
+                                                                    webpush.setVapidDetails('mailto:ryzit1@gmail.com','BODNo79y6EjFqHCpKPh-auheD4NH21jWIhaDZt7_uBt9LLg4ZVUJ-8rfMRg47VZWVviLA-pC_awr71lvnt705vs','clFCCVwBLp6rzCZo_LfdFcusSlLa-0CQ8-J77GJUD30')
+                                                                    Subscription.find({}, (err,subscriptions) => {
+                                                                        if(err){
+                                                                            console.log(err)
+                                                                            res.redirect("/index")
+                                                                        }else{
+                                                                            subscriptions.forEach( sub => {
+                                                                                if( updatedComment.commentOwnerId.toString().includes(sub.uid.toString()) && req.user.id != updatedComment.commentOwnerId  ){
+                                                                                    var pushConfig = {
+                                                                                        endpoint : sub.endpoint,
+                                                                                        keys : {
+                                                                                            auth : sub.keys.auth,
+                                                                                            p256dh : sub.keys.p256dh
+                                                                                        }
+                                                                                    };
+                                                                                    webpush.sendNotification(pushConfig, JSON.stringify({
+                                                                                        title : updatedComment.content,
+                                                                                        content : req.user.username + " replied to your comment." ,
+                                                                                        image : post.image,
+                                                                                        openUrl : 'https://ryzit.herokuapp.com/post-' + req.params.postId
+                                                                                    }) )
+                                                                                }
+                                                                            })
+                                                                            res.redirect("/post-" + req.params.postId)
+                                                                        }
+                                                                    } )  
+                                                                    // req.flash("success","Replied Successfully")
+                                                                    
                                                                 }
                                                             })
                                                         }

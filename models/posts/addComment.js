@@ -7,6 +7,8 @@ var commentSchema = require("./commentSchema")
 var Comment = mongoose.model("Comment",commentSchema)
 var notificationSchema = require("../index/notificationSchema")
 var Notification = mongoose.model("Notification",notificationSchema)
+var webpush = require("web-push")
+var Subscription = require("../subscription/schema")
 var dateformat = require("dateformat")
 
 function addComment(req,res){
@@ -92,8 +94,33 @@ function addComment(req,res){
                                             req.flash("error","Comment Cannot Be Added Right Now")
                                             res.redirect("/post-" + req.params.postId)
                                         }else{
-                                            req.flash("success","Comment Added Successfully")
-                                            res.redirect("/post-" + req.params.postId)
+                                            webpush.setVapidDetails('mailto:ryzit1@gmail.com','BODNo79y6EjFqHCpKPh-auheD4NH21jWIhaDZt7_uBt9LLg4ZVUJ-8rfMRg47VZWVviLA-pC_awr71lvnt705vs','clFCCVwBLp6rzCZo_LfdFcusSlLa-0CQ8-J77GJUD30')
+                                            Subscription.find({}, (err,subscriptions) => {
+                                                if(err){
+                                                    console.log(err)
+                                                    res.redirect("/index")
+                                                }else{
+                                                    subscriptions.forEach( sub => {
+                                                        if( post.owner.toString().includes(sub.uid.toString()) && req.user.id != post.owner ){
+                                                            var pushConfig = {
+                                                                endpoint : sub.endpoint,
+                                                                keys : {
+                                                                    auth : sub.keys.auth,
+                                                                    p256dh : sub.keys.p256dh
+                                                                }
+                                                            };
+                                                            webpush.sendNotification(pushConfig, JSON.stringify({
+                                                                title : post.caption,
+                                                                content : req.user.username + " have commented on your post." ,
+                                                                image : post.image,
+                                                                openUrl : 'https://ryzit.herokuapp.com"/post-' + req.params.postId
+                                                            }) )
+                                                        }
+                                                    })
+                                                    req.flash("success","Comment Added Successfully")
+                                                    res.redirect("/post-" + req.params.postId)
+                                                }
+                                            } )  
                                         }
                                     })
                                 }

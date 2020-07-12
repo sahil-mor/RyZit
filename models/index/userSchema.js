@@ -71,7 +71,8 @@ var userSchema = new mongoose.Schema({
         date : String,
         time : String,
         timeOfPosting : Date
-    }]
+    }],
+    notificationSub : Boolean
 })
 
 userSchema.plugin(passportLocalMongoose)

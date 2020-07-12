@@ -9,7 +9,10 @@ var flash =  require("connect-flash")
 const dotenv = require('dotenv');
 dotenv.config();
 
-var Subscription = require("./models/subscription/schema")
+var newSubscription = require("./models/subscription/newSubscription")
+
+var middleware = require('./middleware/index')
+
 
 var friendRoutes = require("./routes/friends")
 var indexRoutes = require("./routes/index")
@@ -54,22 +57,7 @@ app.use(postRoutes)
 app.use(messageRoutes)
 app.use(otpRoutes)
 
-app.post("/newSubscription",(req,res) => {
-    console.log(req.body)
-    Subscription.create({
-        endpoint : req.body.endpoint,
-        keys : {
-            auth : req.body.keys.auth,
-            p256dh : req.body.keys.p256dh
-        }
-    }, (err,newSubscription) => {
-        if(err){
-            res.status(500).json({ error : err })
-        }else{
-            res.status(200).json({ message : "Data stored" })
-        }
-    } )
-})
+app.post("/newSubscription",middleware.isLoggedIn,newSubscription)
 
 app.get("/offline",(req,res) => {
     res.render("offline/offline")
