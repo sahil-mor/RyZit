@@ -26,7 +26,6 @@ profile = (req,res) => {
             req.flash("error","Unexpected Error Occured!!!")
             res.redirect("/")
         }else{
-          console.log(user)
           res.render("index/index",{ user : user, title : "RyZit", data : user.timeline })
         }
     })
