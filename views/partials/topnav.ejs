@@ -79,7 +79,7 @@
                       <% var months = ['Jan','Feb','Mar','April','May','June','July','August','Sept','Oct','Nov','Dec'] %>
                       
                       <% if( parseInt(Difference_In_Days) >= 7 ){ %>
-                        <% whatToWrite = eachNotification.time.getDate() + ' ' + months[eachNotification.time.getMonth()] + ' ' + eachNotification.time.getFullYear() %>  
+                        <% whatToWrite = each.timeOfPosting.getDate() + ' ' + months[each.timeOfPosting.getMonth()] + ' ' + each.timeOfPosting.getFullYear() %>  
                       <%}else if(Difference_In_Days > 1){ %> 
                         <% whatToWrite = parseInt(Difference_In_Days) + ' days ago' %>
                       <%}else if( Difference_In_Time_Hours > 1 ){ %> 
@@ -126,7 +126,8 @@
               <div class="list-group list-group-flush">
                 <% var i = 0; %>
                 <% user.notifications.forEach( (eachNotification) => { %> 
-                  <% if(i < 5){ %> 
+                  <% console.log(eachNotification)  %>
+                  <% if(i < 5 && eachNotification != undefined){ %> 
                   <a href="/notifications" class="list-group-item list-group-item-action">
                     <div class="row align-items-center">
                       <div class="col-auto">

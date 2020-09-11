@@ -77,8 +77,8 @@
                         <% var months = ['Jan','Feb','Mar','April','May','June','July','August','Sept','Oct','Nov','Dec'] %>
                         <div class="text-right text-muted">
                           <% if( parseInt(Difference_In_Days) >= 7 ){ %>
-                            <small><%= eachMessage.time.getDate() %> <%= months[eachMessage.time.getMonth()] %>
-                              <%= eachMessage.time.getFullYear() %>  </small>
+                            <small><%= eachMessage.timeOfPosting.getDate() %> <%= months[eachMessage.timeOfPosting.getMonth()] %>
+                              <%= eachMessage.timeOfPosting.getFullYear() %>  </small>
                           <%}else if(Difference_In_Days > 1){ %> 
                             <span class="status"><%= parseInt(Difference_In_Days) %> days ago</span>
                           <%}else if( Difference_In_Time_Hours > 1 ){ %> 
