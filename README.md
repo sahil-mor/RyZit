@@ -4,6 +4,15 @@ RyZit is a social networking pwa written in HTML , CSS , Bootstrap & NodeJS with
 <br />
 
 # Screenshots
+## About Ryzit
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/sahil-mor/RyZit/blob/master/Screenshots/about.png"  ></td>
+  </tr>
+  </table>
+
+<br />
+
 ## Authentication
 <table>
   <tr>
@@ -12,6 +21,43 @@ RyZit is a social networking pwa written in HTML , CSS , Bootstrap & NodeJS with
   </table>
 
 <br />
+
+## Index
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/sahil-mor/RyZit/blob/master/Screenshots/index.png"  ></td>
+  </tr>
+  </table>
+
+<br />
+
+## Message
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/sahil-mor/RyZit/blob/master/Screenshots/mymsg.png"  ></td>
+  </tr>
+  </table>
+
+<br />
+
+## Profile
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/sahil-mor/RyZit/blob/master/Screenshots/profile.png"  ></td>
+  </tr>
+  </table>
+
+<br />
+
+## Notification
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/sahil-mor/RyZit/blob/master/Screenshots/notifications.png"  ></td>
+  </tr>
+  </table>
+
+<br />
+
 
 
 # Getting Started
@@ -43,6 +89,6 @@ Database - <a href="https://mongoosejs.com/"> Mongoose </a>  <br />
 <br />
 
 # Author
+<a href="https://sahilmor.herokuapp.com/" > Sahil Mor </a> <br />
 Frontend by <a href="https://github.com/sheoranabhishek"> Abhishek Sheoran </a>
-Backend by <a href="https://sahilmor.herokuapp.com/" > Sahil Mor </a> <br />
 
