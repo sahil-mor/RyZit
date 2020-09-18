@@ -14,10 +14,10 @@ Visit http://localhost:4000  <br />
 # TechStack
 <table>
   <tr>
-    <td><img src="https://github.com/sahil-mor/RyZit/blob/master/public/assets/img/theme/node.jpg" /></td>
-    <td><img src="https://github.com/sahil-mor/RyZit/blob/master/public/assets/img/theme/mongoose.png" width="50px;" /></td>
-    <td><img src="https://github.com/sahil-mor/RyZit/blob/master/public/assets/img/theme/bootstrap.jpg" width="50px;"></td>
-    <td><img src="https://github.com/sahil-mor/RyZit/blob/master/public/assets/img/theme/pwa.png" width="50px;" />
+    <td><img src="https://github.com/sahil-mor/RyZit/blob/master/public/assets/img/theme/node.jpg" width="150px" height="150px" /></td>
+    <td><img src="https://github.com/sahil-mor/RyZit/blob/master/public/assets/img/theme/mongoose.png" width="150px" height="150px" /></td>
+    <td><img src="https://github.com/sahil-mor/RyZit/blob/master/public/assets/img/theme/bootstrap.jpg"  width="150px" height="150px"></td>
+    <td><img src="https://github.com/sahil-mor/RyZit/blob/master/public/assets/img/theme/pwa.png"  width="150px" height="150px" />
     <br />  </td>
   </tr>
   </table>
