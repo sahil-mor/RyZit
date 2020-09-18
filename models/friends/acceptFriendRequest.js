@@ -18,7 +18,6 @@ function acceptRequest(req,res){
             User.findById(req.params.senderOfRequestId,function(err,requestSender){
                 if(err){
                     console.log(err)
-                   
                     req.flash("error","Friend Request Not Accepted Successfully")
                     res.redirect('/index')
                 }else{
