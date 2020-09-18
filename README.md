@@ -3,6 +3,17 @@ RyZit is a social networking pwa written in HTML , CSS , Bootstrap & NodeJS with
 
 <br />
 
+# Screenshots
+## Authentication
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/sahil-mor/RyZit/blob/master/Screenshots/signin.png"  ></td>
+  </tr>
+  </table>
+
+<br />
+
+
 # Getting Started
 Fork this repository.<br />
 Run npm install to download modules.<br />
@@ -32,6 +43,6 @@ Database - <a href="https://mongoosejs.com/"> Mongoose </a>  <br />
 <br />
 
 # Author
-<a href="https://sahilmor.herokuapp.com/" > Sahil Mor </a> <br />
 Frontend by <a href="https://github.com/sheoranabhishek"> Abhishek Sheoran </a>
+Backend by <a href="https://sahilmor.herokuapp.com/" > Sahil Mor </a> <br />
 
