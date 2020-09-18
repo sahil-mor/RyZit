@@ -94,6 +94,6 @@ Database - <a href="https://mongoosejs.com/"> Mongoose </a>  <br />
 <br />
 
 # Author
-<a href="https://sahilmor.herokuapp.com/" > Sahil Mor </a> <br />
 Frontend by <a href="https://github.com/sheoranabhishek"> Abhishek Sheoran </a>
+Backend and PWA by <a href="https://sahilmor.herokuapp.com/" > Sahil Mor </a> <br />
 
