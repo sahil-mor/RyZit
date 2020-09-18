@@ -4,6 +4,11 @@ RyZit is a social networking pwa written in HTML , CSS , Bootstrap & NodeJS with
 <br />
 
 # Video
+<a href="https://ryzit.herokuapp.com/" > Visit RyZit. </a>
+
+<rb />
+
+# Video
 <a href="https://drive.google.com/file/d/1-JzEqjMXJ14ZoxqvU5u1HxM4US0eFm2A/view" > Video for RyZit. </a>
 
 <br />
