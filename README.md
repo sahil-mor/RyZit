@@ -3,6 +3,16 @@ RyZit is a social networking pwa written in HTML , CSS , Bootstrap & NodeJS with
 
 <br />
 
+# Hosted
+<a href="https://ryzit.herokuapp.com/" > Visit RyZit. </a>
+
+<br />
+
+# Video
+<a href="https://drive.google.com/file/d/1Wfaz26PC-YDgZYI_AKlsElFHrXRKRFvs/view?usp=sharing"> Video </a>
+
+<br />
+
 # Screenshots
 ## About Ryzit
 <table>
@@ -89,6 +99,6 @@ Database - <a href="https://mongoosejs.com/"> Mongoose </a>  <br />
 <br />
 
 # Author
-<a href="https://sahilmor.herokuapp.com/" > Sahil Mor </a> <br />
-Frontend by <a href="https://github.com/sheoranabhishek"> Abhishek Sheoran </a>
+Frontend by <a href="https://github.com/sheoranabhishek"> Abhishek Sheoran </a> <br />
+Backend and PWA by <a href="https://sahilmor.herokuapp.com/" > Sahil Mor </a> 
 
