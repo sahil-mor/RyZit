@@ -1,13 +1,17 @@
 var mongoose = require("mongoose")
 var userSchema = require("./userSchema")
-var passport = require("passport")
 User = mongoose.model("User",userSchema)
-var dateformat = require('dateformat')
 
 var otpSchema = require("../otp/otpSchema")
 var OTP = mongoose.model("OTP",otpSchema)
 var nodemailer = require('nodemailer');
 var otp;
+
+const auth = {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD
+}
+
 function Signup(req,res){
     if(req.body.confirmPassword !== req.body.password ){
         req.flash("error","PASSWORD ARE NOT THE SAME")
@@ -40,10 +44,7 @@ function Signup(req,res){
                                     host: 'smtp.gmail.com',
                                     port: 465,
                                     secure: true,
-                                    auth: {
-                                        user: "ryzit1@gmail.com",
-                                        pass: "etrikieegnaqqngu"
-                                    }
+                                    auth
                                 })
                                 otp = Math.floor(Math.random() * 1000000)
                                 const mailOpts = {

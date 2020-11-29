@@ -15,7 +15,11 @@ var editProfile = require("../models/index/editProfile")
 var middleware = require("../middleware")
 
 router.get("/",function(req,res){
-    res.render("index/home",{ title : "RyZit"})
+    if(req.user){
+        res.redirect("/index")
+    }else{
+        res.render("index/home",{ title : "RyZit"})
+    }
 })
 
 router.get("/signup",(req,res)=>{
@@ -47,8 +51,10 @@ router.get("/notifications",middleware.isLoggedIn,notifications)
 router.post("/editProfile",middleware.isLoggedIn,editProfile)
 
 router.get("/logout",function(req,res){
-    req.logout();
-    req.flash("success","SUCCESSFULLY LOGGED YOU OUT")
+    if(req.user){
+        req.logout();
+        req.flash("success","SUCCESSFULLY LOGGED YOU OUT")
+    }
     res.redirect("/")
 })
 

@@ -5,14 +5,13 @@ var methodOverride = require("method-override")
 var passport = require("passport")
 var LocalStratergy = require("passport-local")
 var flash =  require("connect-flash")
+const dotenv = require("dotenv")
+dotenv.config()
 
-const dotenv = require('dotenv');
-dotenv.config();
 
 var newSubscription = require("./models/subscription/newSubscription")
 
 var middleware = require('./middleware/index')
-
 
 var friendRoutes = require("./routes/friends")
 var indexRoutes = require("./routes/index")
@@ -27,8 +26,8 @@ app.set("view engine","ejs")
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(bodyParser.json());
 app.use(methodOverride("_method"));
-//  mongodb+srv://SahilMor:Sahil@14@cluster0-fhn8u.mongodb.net/ryzit
-mongoose.connect("mongodb://localhost:27017/ryzit" ,  { useUnifiedTopology: true,useNewUrlParser : true })
+
+mongoose.connect(process.env.DBURL ,  { useUnifiedTopology: true,useNewUrlParser : true,useFindAndModify : false })
 
 var userSchema = require("./models/index/userSchema")
 User = mongoose.model("User",userSchema)
@@ -36,7 +35,7 @@ User = mongoose.model("User",userSchema)
 app.use(require("express-session")({
     resave : false, saveUninitialized : false , secret : "This is ryzit"
 }))
-
+ 
 app.use(flash());
 app.use(function(req,res,next){
     res.locals.error = req.flash("error")
