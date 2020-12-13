@@ -10,10 +10,7 @@ RyZit is a social networking pwa written in HTML , CSS , Bootstrap & NodeJS with
 
 # Video
 <!-- <a href="https://drive.google.com/file/d/1Wfaz26PC-YDgZYI_AKlsElFHrXRKRFvs/view?usp=sharing"> Video </a> --!>
-<video>
-    <source src="https://drive.google.com/file/d/1Wfaz26PC-YDgZYI_AKlsElFHrXRKRFvs/view" type='video/mp4'>
-</video>
-
+<iframe src="https://drive.google.com/file/d/1Wfaz26PC-YDgZYI_AKlsElFHrXRKRFvs/preview" width="640" height="480"></iframe>
 <br />
 
 # Screenshots
