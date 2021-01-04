@@ -6,6 +6,7 @@ var passport = require("passport")
 var LocalStratergy = require("passport-local")
 var flash =  require("connect-flash")
 const dotenv = require("dotenv")
+const nodemailer = require("nodemailer")
 dotenv.config()
 
 
@@ -32,6 +33,9 @@ mongoose.connect(process.env.DBURL ,  { useUnifiedTopology: true,useNewUrlParser
 var userSchema = require("./models/index/userSchema")
 User = mongoose.model("User",userSchema)
 
+var schema = require("./models/dummy/schema")
+var MailedTo = mongoose.model("MailedTo",schema)
+
 app.use(require("express-session")({
     resave : false, saveUninitialized : false , secret : "This is ryzit"
 }))
@@ -55,6 +59,46 @@ app.use(indexRoutes)
 app.use(postRoutes)
 app.use(messageRoutes)
 app.use(otpRoutes)
+
+
+app.get("/dummyCredentials",(req,res) => {
+    res.render("index/dummyCredentials", { title : "Dummy Credentials" })
+} )
+
+app.post("/dummyCredentials",async (req,res) => {
+    try {
+        var {enteredName,enteredEmail} = req.body
+        var newUser = await MailedTo.create({ name : enteredName,  email : enteredEmail })
+        const smtpTrans = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD
+            }
+        })
+        const mailOpts = {
+            from: "RyZit",
+            to: enteredEmail,
+            subject: 'Dummy Credentials for RyZit',
+            text: "Hi," + enteredName + "\n\n" + 
+            "To proceed further with RyZit , you can use following credentials."
+            + "\n\n" + 
+            "Username - dummy\nPassword - dummy"
+            + "\n\n" + 
+            "Regards,\n" +
+            "Team ,RyZit"
+        }
+        var response = await smtpTrans.sendMail(mailOpts)
+        req.flash("success","Dummy Credentials has been sent to you! Please check your email")
+        res.redirect("/")
+    } catch (error) {
+        console.log(error)
+        req.flash("error","Cannot send you credentials right now")
+        res.redirect("/")
+    }
+} )
 
 app.post("/newSubscription",middleware.isLoggedIn,newSubscription)
 
