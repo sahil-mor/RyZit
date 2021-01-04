@@ -7,6 +7,10 @@ mailedToSchema = new mongoose.Schema({
     name : {
         type : String,
         default : ""
-    }
+    },
+    timeOfUploading : {
+        type : Date,
+        default : Date.now()
+    },
 })
 module.exports = mailedToSchema
